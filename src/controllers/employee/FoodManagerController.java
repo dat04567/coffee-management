@@ -57,9 +57,10 @@ public class FoodManagerController extends ManagerController {
     public void actionDelete() {
         int selectedIds[] = view.getSelectedIds();
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa thức uống", ERROR_MESSAGE) != YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt ?", "Xóa thức uống", ERROR_MESSAGE) != YES_OPTION) {
                 return;
             }
+            
             for (int i = 0; i < selectedIds.length; i++) {
 //                employeeDao.deleteById(selectedIds[i]);
 //                updateData();
