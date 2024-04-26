@@ -23,10 +23,27 @@ public enum LoaiNuoc {
         this.label = label;
     }
 
+    public String getLabel() {
+        return label;
+    }
+    
+    
+
     @Override
     public String toString() {
         return label;
     }
+    
+    
+      public static LoaiNuoc getByName(String name) {
+        for (LoaiNuoc e : values()) {
+            if (e.label.equals(name)) {
+                return e;
+            }
+        }
+        return COLD_DRINK;
+    }
+    
         
     
    

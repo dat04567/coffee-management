@@ -13,7 +13,7 @@ public class Database {
         try {
   
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/mysql";
+            String url = "jdbc:mysql://localhost:3306/coffee";
             String user = "root";
             String password = "123456789";
             this.conn = DriverManager.getConnection(url, user, password);
