@@ -8,11 +8,11 @@ import javax.swing.table.TableModel;
  *
  * @author mac
  */
-public class OrderTableManagerView extends ManagerPaneView<ThucUong> {
+public class BookTableManagerView extends ManagerPaneView<ThucUong> {
 
     String[] list = {"Mã bàn", "Tên khách hàng", "Số điện thoại", "Thời gian đặt bàn", "Số lượng bàn",  "Hình thức thanh toán", "ghi chú"};
 
-    public OrderTableManagerView() {
+    public BookTableManagerView() {
         super();
         setTableModel();
         renderTable();

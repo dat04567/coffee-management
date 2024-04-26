@@ -3,6 +3,7 @@ package controllers.employee;
 
 import controllers.ManagerController;
 import controllers.popup.FoodPopupController;
+import dao.ThucUongDao;
 import entity.ThucUong;
 import gui.employee.FoodManagerView;
 import gui.popup.FoodPopupView;
@@ -18,6 +19,7 @@ public class FoodManagerController extends ManagerController {
   
 //    EmployeePopupController popupController = new EmployeePopupController();
     FoodPopupController foodPopupController = new FoodPopupController();
+    ThucUongDao thucUongDao = new ThucUongDao();
     public FoodManagerController() {
         super();
     }
@@ -27,6 +29,8 @@ public class FoodManagerController extends ManagerController {
  
         foodPopupController.add(new FoodPopupView(), this::updateData, view::showError);
     }
+    
+   
 
     @Override
     public void actionEdit() {
@@ -45,7 +49,7 @@ public class FoodManagerController extends ManagerController {
 //                    return;
 //                }
 //            }
-            foodPopupController.edit(new FoodPopupView(), new ThucUong(), this::updateData, view::showError);
+//            foodPopupController.edit(new FoodPopupView(), new ThucUong(), this::updateData, view::showError);
 //            popupController.edit(new EmployeePopupView(), e, this::updateData, view::showError);
 
         } catch (Exception e) {
@@ -60,11 +64,11 @@ public class FoodManagerController extends ManagerController {
             if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt ?", "Xóa thức uống", ERROR_MESSAGE) != YES_OPTION) {
                 return;
             }
-            
-            for (int i = 0; i < selectedIds.length; i++) {
-//                employeeDao.deleteById(selectedIds[i]);
-//                updateData();
+            for (int id : selectedIds) {
+                
+                
             }
+           
         } catch (Exception e) {
             view.showError(e);
         }
@@ -74,8 +78,8 @@ public class FoodManagerController extends ManagerController {
     @Override
     public void updateData() {
         try {
-//            ArrayList<Employee> employees = employeeDao.getAll();
-//            view.setTableData(employees);
+            ArrayList<ThucUong> thucUongs = thucUongDao.getAll();
+            view.setTableData(thucUongs);
         } catch (Exception e) {
             view.showError(e);
         }

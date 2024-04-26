@@ -7,6 +7,8 @@ package controllers;
 
 
 import controllers.employee.FoodManagerController;
+import controllers.employee.OrderManagerController;
+import controllers.employee.TableController;
 import gui.AboutView;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -19,7 +21,7 @@ import gui.LoginView;
 import gui.employee.FoodManagerView;
 import gui.employee.MenuItem;
 import gui.employee.OrderManagerView;
-import gui.employee.OrderTableManagerView;
+import gui.employee.BookTableManagerView;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import utils.IconManager;
@@ -33,14 +35,16 @@ public class EmployeeDashboardController {
 
     private EmployeeDashboardView view;
     ManagerController foodManagerController = new FoodManagerController();
+    OrderManagerController orderManagerController;
   
     HomeView homeView = new HomeView();
     AboutView aboutView = new AboutView();
     FoodManagerView foodManagerView = new FoodManagerView();
     OrderManagerView orderManagerView = new OrderManagerView();
-    OrderTableManagerView orderTableManagerView  = new OrderTableManagerView();
+    BookTableManagerView orderTableManagerView  = new BookTableManagerView();
 
     SideBarController sideBarController;
+    TableController tableController;
     JPanel[] cards = {homeView, aboutView, foodManagerView, orderManagerView, orderTableManagerView};
 
     public EmployeeDashboardController(EmployeeDashboardView view) {
@@ -49,7 +53,10 @@ public class EmployeeDashboardController {
         view.setVisible(true);
         initMenu();
         addEvent();
+        orderManagerController = new OrderManagerController(orderManagerView);
         
+//        tableController = new TableController(orderManagerView.getTableManPnl());
+//        tableController.addTable(25);
         view.setCards(cards);
         view.setPanel(homeView);
 
@@ -57,6 +64,9 @@ public class EmployeeDashboardController {
        
 
     }
+    
+    
+    
 
     public EmployeeDashboardView getView() {
         return view;
@@ -75,6 +85,8 @@ public class EmployeeDashboardController {
         MenuItem menuBH = new MenuItem("BH", im.getIcon("selling.png"), "Bán hàng");
         MenuItem menuVCT = new MenuItem("VCT", im.getIcon("teamwork.png"), "Về Chúng Tôi");
          
+        
+        
         sideBarController.addMenu(menuTU, menuDB, menuBH, menuVCT);
         sideBarController.addMenuEvent(this::onMenuChange);
     }
@@ -97,9 +109,8 @@ public class EmployeeDashboardController {
             case "QLTU": // Quản lý thức uống
                   view.setPanel(foodManagerView);
                   foodManagerController.setView(foodManagerView);
-                   
-//                orderManagerController.setView(orderManagerView);
-//                orderManagerController.updateData();
+                  foodManagerController.updateData();
+
                 break;
             case "QLDB":// Quản lý đặt bàn
                 view.setPanel(orderTableManagerView);
@@ -108,6 +119,9 @@ public class EmployeeDashboardController {
                 break;
             case "BH"://Bán hàng
                 view.setPanel(orderManagerView);
+                
+                
+                
 //                shipmentManagerController.setView(shipmentManagerView);
 //                shipmentManagerController.updateData();
                 break;

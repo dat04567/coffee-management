@@ -36,6 +36,38 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         return btnCancel;
     }
 
+    public JComboBox<String> getDonVi() {
+        return donVi;
+    }
+
+    public void setDonVi(JComboBox<String> donVi) {
+        this.donVi = donVi;
+    }
+
+    public JComboBox<String> getLoaiNuoc() {
+        return loaiNuoc;
+    }
+
+    public void setLoaiNuoc(JComboBox<String> loaiNuoc) {
+        this.loaiNuoc = loaiNuoc;
+    }
+
+    public JTextField getMaThucUong() {
+        return maThucUong;
+    }
+
+    public void setMaThucUong(JTextField maThucUong) {
+        this.maThucUong = maThucUong;
+    }
+
+    public JLabel getMaThucUongLbl() {
+        return maThucUongLbl;
+    }
+
+    public void setMaThucUongLbl(JLabel maThucUongLbl) {
+        this.maThucUongLbl = maThucUongLbl;
+    }
+
     public JSpinner getSpnCount() {
         return spnCount;
     }
@@ -44,44 +76,24 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         this.spnCount = spnCount;
     }
 
-    public JComboBox<String> getTypeDink() {
-        return typeDink;
-    }
-
-    public void setTypeDink(JComboBox<String> typeDink) {
-        this.typeDink = typeDink;
-    }
-
-    public JComboBox<String> getUnit() {
-        return unit;
-    }
-
-    public void setUnit(JComboBox<String> unit) {
-        this.unit = unit;
-    }
-
-
-    public JLabel getTxtLabel() {
-        return lbTitle;
-    }
-
-
-    public JTextField getTxtPassword() {
-        return txtPassword;
-    }
-
-
-    public JTextField getTxtUsername() {
-        return txtUsername;
-    }
-
-    public JLabel getLbTitle() {
-        return lbTitle;
-    }
-
     public JSpinner getSpnSalary() {
         return spnSalary;
     }
+
+    public void setSpnSalary(JSpinner spnSalary) {
+        this.spnSalary = spnSalary;
+    }
+
+    public JTextField getTenNuoc() {
+        return tenNuoc;
+    }
+
+    public void setTenNuoc(JTextField tenNuoc) {
+        this.tenNuoc = tenNuoc;
+    }
+
+ 
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,18 +103,18 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         jPanel2 = new javax.swing.JPanel();
         lbTitle = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
+        maThucUongLbl = new javax.swing.JLabel();
+        tenNuoc = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        maThucUong = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         spnSalary = new javax.swing.JSpinner();
         spnCount = new javax.swing.JSpinner();
-        typeDink = new javax.swing.JComboBox<>();
-        unit = new javax.swing.JComboBox<>();
+        loaiNuoc = new javax.swing.JComboBox<>();
+        donVi = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -122,12 +134,12 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setText("Mã thức uống:");
+        maThucUongLbl.setText("Mã thức uống:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jLabel2, gridBagConstraints);
+        jPanel1.add(maThucUongLbl, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -135,7 +147,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.ipadx = 136;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(txtPassword, gridBagConstraints);
+        jPanel1.add(tenNuoc, gridBagConstraints);
 
         jLabel6.setText("Loại nước:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -170,7 +182,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.ipadx = 136;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(txtUsername, gridBagConstraints);
+        jPanel1.add(maThucUong, gridBagConstraints);
 
         jLabel3.setText("Tên nước:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -181,7 +193,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jLabel7.setText("Tiền lương:");
+        jLabel7.setText("Giá bán:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -190,10 +202,10 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel7, gridBagConstraints);
 
-        spnSalary.setModel(new javax.swing.SpinnerNumberModel(0, 0, 50000000, 100000));
+        spnSalary.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 5.0E7d, 100000.0d));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(spnSalary, gridBagConstraints);
@@ -201,26 +213,26 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         spnCount.setModel(new javax.swing.SpinnerNumberModel(0, 0, 50000000, 100000));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(spnCount, gridBagConstraints);
 
-        typeDink.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        loaiNuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nước giải khát", "Coffee", "Sinh Tố" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(typeDink, gridBagConstraints);
+        jPanel1.add(loaiNuoc, gridBagConstraints);
 
-        unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        donVi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chai", "Ly" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(unit, gridBagConstraints);
+        jPanel1.add(donVi, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -249,7 +261,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<String> donVi;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -259,12 +271,17 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbTitle;
+    private javax.swing.JComboBox<String> loaiNuoc;
+    private javax.swing.JTextField maThucUong;
+    private javax.swing.JLabel maThucUongLbl;
     private javax.swing.JSpinner spnCount;
     private javax.swing.JSpinner spnSalary;
-    private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtUsername;
-    private javax.swing.JComboBox<String> typeDink;
-    private javax.swing.JComboBox<String> unit;
+    private javax.swing.JTextField tenNuoc;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public JLabel getLbTitle() {
+       return lbTitle;
+    }
 
 }

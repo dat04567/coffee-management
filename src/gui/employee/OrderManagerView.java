@@ -4,20 +4,77 @@
  */
 package gui.employee;
 
+import java.awt.BorderLayout;
+import java.util.Date;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import utils.IconManager;
+
 /**
  *
  * @author mac
  */
-public class OrderManagerView extends javax.swing.JPanel {
+public  class OrderManagerView extends javax.swing.JPanel {
+
+     String[] list = {"STT",  "Tên nước", "Giá Bán", "Số lượng", "Ghi chú"};
+     DefaultTableModel tableModel = new DefaultTableModel();
+     
+    IconManager im = new IconManager();
+    private  String numberTable;
+    JPanel panel = new JPanel();
+    public OrderManagerView() {
+        initComponents();
+        pay.setIcon(im.getIcon("pay.png"));
+        print.setIcon(im.getIcon("printer.png"));
+        tableFood.setModel(tableModel);
+        setTableModel();
+        payments.addItem("Tiền mặt");
+        payments.addItem("Thanh toán chuyển khoản");
+        
+//        JScrollPane scrollPane = new JScrollPane(panel);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+//        scrollPane.setBounds(50, 30, 300, 50);
+//        
+        
+//        add(scrollPane, BorderLayout.CENTER);
+
+    }
+    public void setTableModel() {
+          for (String string : list) {
+              tableModel.addColumn(string);
+        }
+
+    }
+
+    public JPanel getTableManPnl() {
+        return tableManPnl;
+    }
+
+    public JLabel getNameTable() {
+        return nameTable;
+    }
+
+    public JButton getBtnChoose() {
+        return btnChoose;
+    }
+
+    public JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    public JButton getBtnRemove() {
+        return btnRemove;
+    }
+    
+    
 
     
     
     
-    public OrderManagerView() {
-        initComponents();
-        
-        
-    }
     
     
     
@@ -33,43 +90,53 @@ public class OrderManagerView extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tableManPanel = new javax.swing.JPanel();
+        tableScrollPanel = new javax.swing.JScrollPane();
+        tableManPnl = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableFood = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        nameTable = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        onTheDay = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        chonMon = new javax.swing.JButton();
-        chinhSua = new javax.swing.JButton();
-        xoa = new javax.swing.JButton();
+        btnChoose = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        pay = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
+        tienNhanCuaKhach = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        payments = new javax.swing.JComboBox<>();
 
         setMaximumSize(new java.awt.Dimension(1008, 680));
         setPreferredSize(new java.awt.Dimension(1008, 680));
         setLayout(new java.awt.BorderLayout());
 
-        tableManPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý bàn"));
-        tableManPanel.setLayout(new java.awt.GridLayout(5, 5, 10, 10));
-        add(tableManPanel, java.awt.BorderLayout.CENTER);
+        tableScrollPanel.setToolTipText("");
+        tableScrollPanel.setVerifyInputWhenFocusTarget(false);
+
+        tableManPnl.setMaximumSize(new java.awt.Dimension(200, 3800));
+        tableManPnl.setPreferredSize(new java.awt.Dimension(480, 200));
+        tableManPnl.setRequestFocusEnabled(false);
+        tableManPnl.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 15));
+        tableScrollPanel.setViewportView(tableManPnl);
+
+        add(tableScrollPanel, java.awt.BorderLayout.CENTER);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Chi tiết hoá đơn"));
         jPanel1.setMaximumSize(new java.awt.Dimension(500, 500));
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 536));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 200));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableFood.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,16 +147,18 @@ public class OrderManagerView extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setPreferredSize(new java.awt.Dimension(300, 50));
-        jScrollPane1.setViewportView(jTable1);
+        tableFood.setPreferredSize(new java.awt.Dimension(300, 50));
+        jScrollPane1.setViewportView(tableFood);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Bàn số 2 ");
+        nameTable.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nameTable.setText("Bàn số 2 ");
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel2.setText("Ngày vào");
+
+        onTheDay.setMinSelectableDate(new java.util.Date());
 
         jLabel3.setText("Khách hàng");
 
@@ -99,24 +168,24 @@ public class OrderManagerView extends javax.swing.JPanel {
             }
         });
 
-        chonMon.setBackground(new java.awt.Color(51, 204, 0));
-        chonMon.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        chonMon.setForeground(new java.awt.Color(255, 255, 255));
-        chonMon.setText("Chọn món");
+        btnChoose.setBackground(new java.awt.Color(51, 204, 0));
+        btnChoose.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnChoose.setForeground(new java.awt.Color(255, 255, 255));
+        btnChoose.setText("Chọn món");
 
-        chinhSua.setBackground(new java.awt.Color(255, 204, 0));
-        chinhSua.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        chinhSua.setForeground(new java.awt.Color(255, 255, 255));
-        chinhSua.setText("Chỉnh sửa");
+        btnEdit.setBackground(new java.awt.Color(255, 204, 0));
+        btnEdit.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setText("Chỉnh sửa");
 
-        xoa.setBackground(new java.awt.Color(255, 0, 0));
-        xoa.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        xoa.setForeground(new java.awt.Color(255, 255, 255));
-        xoa.setText("Xoá");
-        xoa.setPreferredSize(new java.awt.Dimension(96, 23));
-        xoa.addActionListener(new java.awt.event.ActionListener() {
+        btnRemove.setBackground(new java.awt.Color(255, 0, 0));
+        btnRemove.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnRemove.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemove.setText("Xoá");
+        btnRemove.setPreferredSize(new java.awt.Dimension(96, 23));
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                xoaActionPerformed(evt);
+                btnRemoveActionPerformed(evt);
             }
         });
 
@@ -129,42 +198,42 @@ public class OrderManagerView extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(nameTable)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(27, 27, 27)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(onTheDay, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(chonMon, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
-                        .addComponent(chinhSua, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(nameTable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(onTheDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chonMon, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chinhSua)
-                    .addComponent(xoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit)
+                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,30 +243,14 @@ public class OrderManagerView extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(200, 200));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        jTextField2.setText("0");
-        jTextField2.setPreferredSize(new java.awt.Dimension(200, 23));
-        jTextField2.setRequestFocusEnabled(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(jTextField2, gridBagConstraints);
-
-        jButton2.setIcon(new javax.swing.ImageIcon("/Users/mac/Documents/coffee managent/icons/pay.png")); // NOI18N
-        jButton2.setText("Thanh toán");
+        pay.setText("Thanh toán");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.ipadx = 30;
-        jPanel3.add(jButton2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        jPanel3.add(pay, gridBagConstraints);
 
         jLabel4.setText("Tổng tiền");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -241,14 +294,36 @@ public class OrderManagerView extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
         jPanel3.add(jLabel8, gridBagConstraints);
 
-        print.setIcon(new javax.swing.ImageIcon("/Users/mac/Documents/coffee managent/icons/printer.png")); // NOI18N
         print.setText("In Hoá Đơn");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.ipadx = 25;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         jPanel3.add(print, gridBagConstraints);
-        print.getAccessibleContext().setAccessibleName("In Hoá Đơn");
+
+        tienNhanCuaKhach.setPreferredSize(new java.awt.Dimension(200, 23));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
+        jPanel3.add(tienNhanCuaKhach, gridBagConstraints);
+
+        jLabel1.setText("Hình thức thanh toán");
+        jLabel1.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(jLabel1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
+        jPanel3.add(payments, gridBagConstraints);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
@@ -259,20 +334,15 @@ public class OrderManagerView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaActionPerformed
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_xoaActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chinhSua;
-    private javax.swing.JButton chonMon;
-    private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JButton btnChoose;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -285,11 +355,15 @@ public class OrderManagerView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel nameTable;
+    private com.toedter.calendar.JDateChooser onTheDay;
+    private javax.swing.JButton pay;
+    private javax.swing.JComboBox<String> payments;
     private javax.swing.JButton print;
-    private javax.swing.JPanel tableManPanel;
-    private javax.swing.JButton xoa;
+    private javax.swing.JTable tableFood;
+    private javax.swing.JPanel tableManPnl;
+    private javax.swing.JScrollPane tableScrollPanel;
+    private javax.swing.JSpinner tienNhanCuaKhach;
     // End of variables declaration//GEN-END:variables
 }

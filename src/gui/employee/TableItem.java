@@ -4,6 +4,9 @@
  */
 package gui.employee;
 
+import javax.swing.JButton;
+import utils.IconManager;
+
 /**
  *
  * @author mac
@@ -13,10 +16,24 @@ public class TableItem extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
-    public TableItem() {
+    IconManager icon = new IconManager();
+    public TableItem(String numberTalbeText) {
         initComponents();
+        numberTable.setIcon(icon.getIcon("circle-table (1).png"));
+        numberTable.setText(numberTalbeText);
     }
 
+    public JButton getNumberTable() {
+        return numberTable;
+    }
+
+    public void setNumberTable(JButton numberTable) {
+        this.numberTable = numberTable;
+    }
+
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,34 +43,35 @@ public class TableItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        numberTable = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("/Users/mac/Documents/coffee managent/icons/circle-table (1).png")); // NOI18N
-        jButton1.setText("Bàn 01");
-        jButton1.setToolTipText("");
-        jButton1.setBorderPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setIconTextGap(0);
-        jButton1.setIgnoreRepaint(true);
-        jButton1.setPreferredSize(new java.awt.Dimension(64, 64));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        numberTable.setBackground(java.awt.Color.orange);
+        numberTable.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        numberTable.setForeground(new java.awt.Color(255, 255, 255));
+        numberTable.setText("Bàn");
+        numberTable.setToolTipText("");
+        numberTable.setBorderPainted(false);
+        numberTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        numberTable.setIconTextGap(0);
+        numberTable.setIgnoreRepaint(true);
+        numberTable.setPreferredSize(new java.awt.Dimension(100, 100));
+        numberTable.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        numberTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                numberTableActionPerformed(evt);
             }
         });
-        add(jButton1, java.awt.BorderLayout.CENTER);
+        add(numberTable, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void numberTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_numberTableActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton numberTable;
     // End of variables declaration//GEN-END:variables
 }

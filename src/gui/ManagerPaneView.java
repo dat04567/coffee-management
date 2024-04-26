@@ -20,7 +20,13 @@ import utils.IconManager;
 
 public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
-    protected DefaultTableModel tableModel = new DefaultTableModel();
+    protected DefaultTableModel tableModel = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+           return false;
+        }
+        
+    };
     IconManager im = new IconManager();
     ArrayList<T> tableData = new ArrayList<>();
 
@@ -32,9 +38,9 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
                 .setHorizontalAlignment(JLabel.LEFT);
         tblData.setAutoCreateRowSorter(true);
         
+ 
         
-        
-        tblData.setModel(tableModel);
+        tblData.setModel(tableModel);;
         
    
     }
@@ -93,6 +99,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
     public void setTableData(ArrayList<T> tableData) {
         this.tableData = tableData;
+        
         renderTable();
     }
 
@@ -242,7 +249,6 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
             }
         });
         jPanel1.add(btnDelete);
-        btnDelete.getAccessibleContext().setAccessibleDescription("");
 
         add(jPanel1, java.awt.BorderLayout.LINE_END);
 
