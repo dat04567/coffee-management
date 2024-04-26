@@ -16,6 +16,9 @@ import java.util.ArrayList;
  */
 public class NhanVienDao  implements Dao<NhanVien> {
 
+    
+    
+    
     @Override
     public ArrayList<NhanVien> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
