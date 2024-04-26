@@ -29,6 +29,8 @@ public class Database {
             System.exit(0);
         }
     }
+    
+    
 
     public Connection getConnection() {
         return this.conn;
