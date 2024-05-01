@@ -11,6 +11,9 @@ import utils.ErrorPopup;
 
 public class FoodPopupView extends javax.swing.JFrame implements PopupView {
 
+    private JButton btnEdit;
+    private JButton btnRemove;
+
     public FoodPopupView() {
         initComponents();
         setLocationRelativeTo(null);
@@ -31,7 +34,12 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
     public JButton getBtnOK() {
         return btnOK;
     }
-
+    public JButton getBtnEdit() {
+        return btnEdit;
+    }
+    public JButton getBtnRemove() {
+        return btnRemove;
+    }
     public JButton getBtnCancel() {
         return btnCancel;
     }

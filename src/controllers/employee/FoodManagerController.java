@@ -5,7 +5,7 @@ import controllers.ManagerController;
 import controllers.popup.FoodPopupController;
 import dao.ThucUongDao;
 import entity.ThucUong;
-import gui.employee.FoodManagerView;
+
 import gui.popup.FoodPopupView;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,63 +16,58 @@ import static javax.swing.JOptionPane.YES_OPTION;
 
 
 public class FoodManagerController extends ManagerController {
-  
-//    EmployeePopupController popupController = new EmployeePopupController();
     FoodPopupController foodPopupController = new FoodPopupController();
     ThucUongDao thucUongDao = new ThucUongDao();
-    public FoodManagerController() {
-        super();
-    }
-
+   
+    
     @Override
     public void actionAdd() {
  
         foodPopupController.add(new FoodPopupView(), this::updateData, view::showError);
     }
     
-   
-
     @Override
     public void actionEdit() {
-        try {
-//            int selectedId = view.getSelectedId();
-//            if (selectedId < 0) {
-//                throw new Exception("Chọn nhân viên cần edit");
-//            }
-//            Employee e = employeeDao.get(selectedId);
-//            if (e == null) {
-//                throw new Exception("Nhân viên bạn chọn không hợp lệ");
-//            }
-//            if (e.getPermission() == EmployeePermission.MANAGER) {
-//                int value = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn chỉnh sửa admin?");
-//                if (value != YES_OPTION) {
-//                    return;
-//                }
-//            }
-//            foodPopupController.edit(new FoodPopupView(), new ThucUong(), this::updateData, view::showError);
-//            popupController.edit(new EmployeePopupView(), e, this::updateData, view::showError);
-
-        } catch (Exception e) {
-            view.showError(e);
+        if (view.getTblData() == null) {
+            view.showError("Không có thức uống");
+            return;
         }
+        int selectedRow = view.getTblData().getSelectedRow();
+        if (selectedRow == -1) {
+            view.showError("Vui lòng chọn một thức uống để sửa");
+            return;
+        }
+        ThucUong thucUong = (ThucUong) view.getTableData().get(selectedRow);
+        foodPopupController.edit(new FoodPopupView(), thucUong, this::updateData, view::showError);
     }
-
-    @Override
+    
+    
+   @Override
     public void actionDelete() {
-        int selectedIds[] = view.getSelectedIds();
+        if (view.getTblData() == null) {
+            view.showError("Không có thức uống");
+            return;
+        }
+        int selectedRow = view.getTblData().getSelectedRow();
+        if (selectedRow == -1) {
+            view.showError("Vui lòng chọn một thức uống để xóa");
+            return;
+        }
+        ThucUong thucUong = (ThucUong) view.getTableData().get(selectedRow);
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt ?", "Xóa thức uống", ERROR_MESSAGE) != YES_OPTION) {
-                return;
+            ThucUong selectedThucUong = thucUongDao.getByMaNuoc(thucUong.getMaNuoc());
+            if (selectedThucUong != null) {
+                thucUongDao.delete(selectedThucUong);
+                updateData();
+                view.showMessage("Xóa thức uống thành công!");
+            } else {
+                view.showError("Thức uống không tồn tại");
             }
-            for (int id : selectedIds) {
-                
-                
-            }
-           
         } catch (Exception e) {
             view.showError(e);
         }
     }
+
 
     
     @Override
@@ -95,4 +90,7 @@ public class FoodManagerController extends ManagerController {
         }
     }
 
+    
+
+    
 }

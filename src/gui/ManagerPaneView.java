@@ -29,7 +29,26 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
     };
     IconManager im = new IconManager();
     ArrayList<T> tableData = new ArrayList<>();
+    public ArrayList<T> getTableData() {
+        return tableData;
+    }
+    public void setTableData(ArrayList<T> tableData) {
+    this.tableData = tableData;
+    renderTable();
+}
 
+    
+    
+    public void renderTable() {
+        tableModel.setNumRows(0);
+        try {
+            for (T item : tableData) {
+                tableModel.addRow(item.toRowTable());
+            }
+        } catch (Exception e) {
+            showError(e);
+        }
+    }
     public ManagerPaneView() {
         initComponents();
         tblData.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -93,15 +112,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
     }
 
 
-    public ArrayList<T> getTableData() {
-        return tableData;
-    }
-
-    public void setTableData(ArrayList<T> tableData) {
-        this.tableData = tableData;
-        
-        renderTable();
-    }
+    
 
     public JTable getTblData() {
         return tblData;
@@ -133,16 +144,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         return id;
     }
 
-    public void renderTable() {
-        tableModel.setNumRows(0);
-        try {
-            for (T item : tableData) {
-                tableModel.addRow(item.toRowTable());
-            }
-        } catch (Exception e) {
-            showError(e);
-        }
-    }
+    
 
     public abstract void setTableModel();
 
