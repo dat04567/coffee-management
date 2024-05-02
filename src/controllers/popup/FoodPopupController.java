@@ -50,43 +50,6 @@ public class FoodPopupController {
         });
 
     }
-    
-      public void edit(FoodPopupView view, ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(evt -> view.dispose());
-
-        view.getLbTitle().setText("Sửa thức uống - ");
-//        view.getTxtUsername().setText(employee.getUsername());
-//        view.getTxtPassword().setText(employee.getPassword());
-//        view.getTxtName().setText(employee.getName());
-//        view.getTxtPhoneNumber().setText(employee.getPhoneNumber());
-//        view.getCboPermission().setSelectedItem(employee.getPermission().getName());
-//        view.getSpnSalary().setValue(employee.getSalary());
-        view.getBtnOK().setText("Cập nhật");
-//        view.getBtnOK().addActionListener(evt -> {
-//            try {
-//                editEmployee(view, employee);
-//                view.dispose();
-//                view.showMessage("Sửa nhân viên thành công!");
-//                sc.onSuccess();
-//            } catch (Exception ex) {
-//                ec.onError(ex);
-//            }
-//        });
-
-    }
-       
-      
-      
-     
-    
-      
- 
     public void addThucUong(FoodPopupView view) throws Exception {
         String maThucUong = view.getMaThucUong().getText(),
                 loaiNuoc = view.getLoaiNuoc().getSelectedItem().toString(),
@@ -101,7 +64,7 @@ public class FoodPopupController {
             throw new Exception("Vui lòng điền đầy đủ thông tin");
         }
         if (giaBan <  0) {
-            throw new Exception("Lương không thể âm");
+            throw new Exception("Giá bán không thể âm");
         }
         
          if (soLuong <  0) {
@@ -121,6 +84,78 @@ public class FoodPopupController {
         
         return;
     }
+    
+    
+    public void edit(FoodPopupView view, ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
+        if (previousView!= null && previousView.isDisplayable()) {
+            previousView.requestFocus();
+            return;
+        }
+        previousView = view;
+        view.setVisible(true);
+        view.getBtnCancel().addActionListener(evt -> view.dispose());
+
+        view.getLbTitle().setText("Sửa thức uống - ");
+        view.getMaThucUong().setText(thucUong.getMaNuoc());
+        view.getTenNuoc().setText(thucUong.getTenNuoc());
+        view.getLoaiNuoc().setSelectedItem(thucUong.getLoaiNuoc());
+        view.getDonVi().setSelectedItem(thucUong.getDonViNuoc());
+        view.getSpnCount().setValue(thucUong.getSoLuongNuoc());
+        view.getSpnSalary().setValue(thucUong.getGiaBan());
+        view.getBtnOK().setText("Cập nhật");
+        view.getBtnOK().addActionListener(evt -> {
+            try {
+                editThucUong(view, thucUong, sc, ec);
+            } catch (Exception ex) {
+                ec.onError(ex);
+            }
+        });
+    }
+
+    public void editThucUong(FoodPopupView view, ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) throws Exception {
+        String maThucUong = view.getMaThucUong().getText(),
+                loaiNuoc = view.getLoaiNuoc().getSelectedItem().toString(),
+                donVi = view.getDonVi().getSelectedItem().toString(),
+                tenNuoc = view.getTenNuoc().getText().toString();
+        int soLuong = (Integer) (view.getSpnCount().getValue());
+        double giaBan = (Double) (view.getSpnSalary().getValue());
+
+        if (maThucUong.isEmpty() || loaiNuoc.isEmpty() || donVi.isEmpty()) {
+            throw new Exception("Vui lòng điền đầy đủ thông tin");
+        }
+        if (giaBan < 0) {
+            throw new Exception("Giá bán không thể âm");
+        }
+        if (soLuong < 0) {
+            throw new Exception("Số lượng không thể âm");
+        }
+
+        DonViNuoc dvn = donVi.equals("Chai")? DonViNuoc.Chai : DonViNuoc.Ly;
+
+        ThucUong updatedThucUong = new ThucUong(maThucUong, tenNuoc, LoaiNuoc.getByName(loaiNuoc), dvn, soLuong, giaBan);
+        updatedThucUong.setMaNuoc(thucUong.getMaNuoc()); 
+
+        thucUongDao.update(updatedThucUong);
+        view.dispose();
+        view.showMessage("Sửa thức uống thành công!");
+        sc.onSuccess();
+}
+    
+
+  public void remove(ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
+        try {
+            thucUongDao.delete(thucUong);
+            sc.onSuccess();
+        } catch (Exception ex) {
+            ec.onError(ex);
+        }
+    }
+      
+     
+    
+      
+ 
+    
 //
 //    public boolean editEmployee(EmployeePopupView view, Employee e) throws Exception {
 //        String username = view.getTxtUsername().getText(),
