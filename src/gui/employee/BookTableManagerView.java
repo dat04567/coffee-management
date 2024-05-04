@@ -3,7 +3,7 @@ package gui.employee;
 import entity.ThucUong;
 import gui.ManagerPaneView;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.table.TableModel;
+
 /**
  *
  * @author mac
@@ -16,13 +16,17 @@ public class BookTableManagerView extends ManagerPaneView<ThucUong> {
         super();
         setTableModel();
         renderTable();
+      
+
     }
 
     @Override
     public void setTableModel() {
-          for (String string : list) {
-              tableModel.addColumn(string);
+          for (int i = 0 ; i < list.length;i++) {
+              tableModel.addColumn(list[i]);
+
         }
+         
         this.getCboSearch().setModel(new DefaultComboBoxModel(list));
     }
 }

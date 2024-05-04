@@ -87,6 +87,8 @@ public class OrderFoodUpdateView extends javax.swing.JFrame {
 
         jLabel4.setText("Số lượng: ");
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 500, 1));
+
         jLabel5.setText("Ghi chú:");
 
         jScrollPane1.setViewportView(jTextPane1);

@@ -8,9 +8,6 @@ import entity.ThucUong;
 
 import gui.popup.FoodPopupView;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.YES_OPTION;
 
 
 

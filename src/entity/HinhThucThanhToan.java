@@ -9,19 +9,45 @@ package entity;
  * @author mac
  */
 public enum HinhThucThanhToan {
-    PAYMENT("Thanh toán khi nhận hàng"),
-    CREDIT("Thẻ tín dụng");
+    PAYMENT("pay", "Tiền mặt"),
+    CREDIT("cre", "Chuyển khoản");
     
     private  String label;
-    
-    HinhThucThanhToan(String label) {
+    private String id;
+    HinhThucThanhToan(String id,String label) {
         this.label = label;
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return label;
     }
+
+    public String getLabel() {
+        return label;
+    }
+    
+    
+    public static HinhThucThanhToan getById(String id) {
+        for (HinhThucThanhToan e : values()) {
+            if (e.id.equals(id)) {
+                return e;
+            }
+        }
+        return PAYMENT;
+    }
+
+    public static HinhThucThanhToan getByName(String name) {
+        for (HinhThucThanhToan e : values()) {
+            if (e.label.equals(name)) {
+                return e;
+            }
+        }
+        return PAYMENT;
+    }
+    
+    
    
     
     

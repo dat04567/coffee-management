@@ -34,7 +34,7 @@ public class ThucUongDao implements Dao<ThucUong>{
     }
 
     @Override
-    public void save(ThucUong t) throws SQLException {
+    public int save(ThucUong t) throws SQLException {
         if (t == null) {
             throw new SQLException("Thức uống rỗng");
         }
@@ -49,6 +49,8 @@ public class ThucUongDao implements Dao<ThucUong>{
         stmt.setDouble(6, t.getGiaBan());
     
         int row = stmt.executeUpdate();
+        
+        return row;
     }
 
     @Override
@@ -70,6 +72,8 @@ public class ThucUongDao implements Dao<ThucUong>{
     }
     
     
+    
+    
     @Override
     public void delete(ThucUong t) throws SQLException {
         if (t == null || t.getMaNuoc() == null || t.getMaNuoc().isEmpty()) {
@@ -80,8 +84,22 @@ public class ThucUongDao implements Dao<ThucUong>{
         stmt.setNString(1, t.getMaNuoc());
         int row = stmt.executeUpdate();
     }
-    
-    
+     
+//     public ThucUong updateOr(int maHoaDon) throws SQLException {
+//        if (maHoaDon == 0) {
+//            throw new SQLException("Mã hoá đơn không hợp lệ");
+//        }
+//        String query = "SELECT * FROM `ThucUong` J ";
+////        PreparedStatement stmt = conn.prepareStatement(query);
+////        stmt.setNString(1, maNuoc);
+////        ResultSet rs = stmt.executeQuery();
+////        if (rs.next()) {
+////            ThucUong thucUong = ThucUong.getFromResultSet(rs);
+////            return thucUong;
+////        } else {
+////            return null;
+////        }
+//    }
     public ThucUong getByMaNuoc(String maNuoc) throws SQLException {
         if (maNuoc == null || maNuoc.isEmpty()) {
             throw new SQLException("Mã thức uống không hợp lệ");

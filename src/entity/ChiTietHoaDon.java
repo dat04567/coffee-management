@@ -3,45 +3,70 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**
  *
  * @author mac
  */
 public class ChiTietHoaDon {
-    private String maBan, maNuoc, maChiTietHoaDon;
-    private  int soLuong;
+    private HoaDon hoaDon;
+    private ThucUong thucUong;
+    private int soLuong;
+    private String ghiChu;
+    private double giaTien;
 
-    public ChiTietHoaDon(String maBan, String maNuoc, String maChiTietHoaDon, int soLuong) {
-        this.maBan = maBan;
-        this.maNuoc = maNuoc;
-        this.maChiTietHoaDon = maChiTietHoaDon;
+    public ChiTietHoaDon(HoaDon hoaDon, ThucUong thucUong, int soLuong, String ghiChu) {
+        this.hoaDon = hoaDon;
+        this.thucUong = thucUong;
+        this.soLuong = soLuong;
+        this.ghiChu = ghiChu;
+    }
+
+    public ChiTietHoaDon(HoaDon hoaDon, ThucUong thucUong) {
+        this.hoaDon = hoaDon;
+        this.thucUong = thucUong;
+    }
+
+    public ChiTietHoaDon(ThucUong thucUong,  String ghiChu, double giaTien, int soLuong) {
+        this.thucUong = thucUong;
+        this.ghiChu = ghiChu;
+        this.giaTien = giaTien;
         this.soLuong = soLuong;
     }
     
+    
+    
+    
 
-    public String getMaBan() {
-        return maBan;
+    public String getGhiChu() {
+        return ghiChu;
     }
 
-    public void setMaBan(String maBan) {
-        this.maBan = maBan;
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+    
+    public double getGiaTien()
+    {
+        return giaTien;
     }
 
-    public String getMaNuoc() {
-        return maNuoc;
+    public HoaDon getHoaDon() {
+        return hoaDon;
     }
 
-    public void setMaNuoc(String maNuoc) {
-        this.maNuoc = maNuoc;
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
     }
 
-    public String getMaChiTietHoaDon() {
-        return maChiTietHoaDon;
+    public ThucUong getThucUong() {
+        return thucUong;
     }
 
-    public void setMaChiTietHoaDon(String maChiTietHoaDon) {
-        this.maChiTietHoaDon = maChiTietHoaDon;
+    public void setThucUong(ThucUong thucUong) {
+        this.thucUong = thucUong;
     }
 
     public int getSoLuong() {
@@ -52,6 +77,23 @@ public class ChiTietHoaDon {
         this.soLuong = soLuong;
     }
     
+    
+    public static ChiTietHoaDon getFromResultSetByMaHoaDon(ResultSet rs)  throws  SQLException {
+        String maNuoc = rs.getNString("maThucUong");
+        String tenNuoc = rs.getNString("tenNuoc");
+        double giaTien = rs.getDouble("giaTien");
+        int soLuong = rs.getInt("soLuong");
+        String ghiChu = rs.getNString("ghiChu");
+        ThucUong thucUong = new ThucUong(maNuoc, tenNuoc);
+        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(thucUong, ghiChu, giaTien, soLuong);
+   
+        
+        return chiTietHoaDon;
+    }
+    
+    
+    
+  
     
     
 }

@@ -6,6 +6,8 @@ package entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  *
@@ -17,6 +19,7 @@ public class ThucUong extends Model{
     private DonViNuoc donViNuoc;
     private int soLuongNuoc;
     private double giaBan;
+   
 
     public ThucUong(String maNuoc, String tenNuoc, LoaiNuoc loaiNuoc, DonViNuoc donViNuoc,  int soLuongNuoc, double giaBan) {
         this.maNuoc = maNuoc;
@@ -25,9 +28,23 @@ public class ThucUong extends Model{
         this.donViNuoc = donViNuoc;
         this.soLuongNuoc = soLuongNuoc;
         this.giaBan = giaBan;
+
+    }
+
+    public ThucUong(String maNuoc, String tenNuoc) {
+        this.maNuoc = maNuoc;
+        this.tenNuoc = tenNuoc;
+    }
+
+    
+    public ThucUong(String maNuoc) {
+        this.maNuoc = maNuoc;
     }
     
+    
 
+    
+   
     public String getMaNuoc() {
         return maNuoc;
     }
@@ -72,6 +89,19 @@ public class ThucUong extends Model{
         return giaBan;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+       if (obj == null) {
+            return false;
+        }
+        if (obj instanceof ThucUong) {
+            ThucUong other = (ThucUong) obj;
+            return this.maNuoc.equals(other.maNuoc);
+        }
+        return false;
+    }
+    
+
     public void setGiaBan(double giaBan) {
         this.giaBan = giaBan;
     }
@@ -90,15 +120,36 @@ public class ThucUong extends Model{
     }
     
 
+    
     @Override
     public String toString() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public String formatVND()
+    {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+        return currencyFormatter.format(this.giaBan);
+    }
     @Override
     public Object[] toRowTable() {
+    
           return new Object[]{
-            this.getMaNuoc(), this.loaiNuoc.getLabel(), this.tenNuoc, this.donViNuoc, this.soLuongNuoc,this.giaBan
+            this.maNuoc, this.loaiNuoc.getLabel(), this.tenNuoc, this.donViNuoc, this.soLuongNuoc,this.formatVND()
+        };
+    }
+    
+    public  Object[] toRowTableOrder(){
+         return new Object[]{
+            this.maNuoc, this.tenNuoc, this.formatVND() , this.soLuongNuoc,
+        };
+    }
+    
+    public  Object[] toRowTablePopUp()
+    {
+        return new Object[]{
+            this.maNuoc, this.tenNuoc,this.formatVND() , this.soLuongNuoc,
         };
     }
 

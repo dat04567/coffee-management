@@ -20,7 +20,7 @@ public interface Dao<T> {
 
     public abstract T get(String id) throws SQLException;
 
-    public abstract void save(T t) throws SQLException;
+    public abstract int save(T t) throws SQLException;
 
     public abstract void update(T t) throws SQLException;
 

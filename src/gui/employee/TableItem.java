@@ -4,7 +4,10 @@
  */
 package gui.employee;
 
+import entity.Ban;
+import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 import utils.IconManager;
 
 /**
@@ -17,11 +20,26 @@ public class TableItem extends javax.swing.JPanel {
      * Creates new form NewJPanel
      */
     IconManager icon = new IconManager();
+    boolean active;
+    Ban ban;
     public TableItem(String numberTalbeText) {
         initComponents();
-        numberTable.setIcon(icon.getIcon("circle-table (1).png"));
+        ban = new Ban();
+        numberTable.setIcon(icon.getIcon("unOrderTable.png"));
         numberTable.setText(numberTalbeText);
+        
+//        UIManager
     }
+
+    public Ban getBan() {
+        return ban;
+    }
+
+    public void setBan(Ban ban) {
+        this.ban = ban;
+    }
+    
+ 
 
     public JButton getNumberTable() {
         return numberTable;
@@ -31,6 +49,19 @@ public class TableItem extends javax.swing.JPanel {
         this.numberTable = numberTable;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+    
+    public void setActive(boolean active) {
+        this.active = active;
+        if (active) {
+            numberTable.setBackground(Color.GREEN);
+        
+        } else {
+            numberTable.setBackground(Color.decode("#EEEEEE"));     
+        }
+    }
     
     
     
@@ -45,13 +76,15 @@ public class TableItem extends javax.swing.JPanel {
 
         numberTable = new javax.swing.JButton();
 
+        setForeground(new java.awt.Color(60, 63, 65));
         setLayout(new java.awt.BorderLayout());
 
-        numberTable.setBackground(java.awt.Color.orange);
+        numberTable.setBackground(java.awt.SystemColor.window);
         numberTable.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        numberTable.setForeground(new java.awt.Color(255, 255, 255));
+        numberTable.setForeground(new java.awt.Color(0, 0, 0));
         numberTable.setText("Bàn");
         numberTable.setToolTipText("");
+        numberTable.setBorder(null);
         numberTable.setBorderPainted(false);
         numberTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         numberTable.setIconTextGap(0);

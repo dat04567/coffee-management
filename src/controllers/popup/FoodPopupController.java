@@ -95,8 +95,9 @@ public class FoodPopupController {
         view.setVisible(true);
         view.getBtnCancel().addActionListener(evt -> view.dispose());
 
-        view.getLbTitle().setText("Sửa thức uống - ");
+        view.getLbTitle().setText("Sửa thức uống");
         view.getMaThucUong().setText(thucUong.getMaNuoc());
+        view.getMaThucUong().setEditable(false);
         view.getTenNuoc().setText(thucUong.getTenNuoc());
         view.getLoaiNuoc().setSelectedItem(thucUong.getLoaiNuoc());
         view.getDonVi().setSelectedItem(thucUong.getDonViNuoc());
@@ -133,16 +134,18 @@ public class FoodPopupController {
         DonViNuoc dvn = donVi.equals("Chai")? DonViNuoc.Chai : DonViNuoc.Ly;
 
         ThucUong updatedThucUong = new ThucUong(maThucUong, tenNuoc, LoaiNuoc.getByName(loaiNuoc), dvn, soLuong, giaBan);
-        updatedThucUong.setMaNuoc(thucUong.getMaNuoc()); 
+       
+     
+       thucUongDao.update(updatedThucUong);
+       view.dispose();
+       view.showMessage("Sửa thức uống thành công!");
+       sc.onSuccess();
+      
 
-        thucUongDao.update(updatedThucUong);
-        view.dispose();
-        view.showMessage("Sửa thức uống thành công!");
-        sc.onSuccess();
 }
     
 
-  public void remove(ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
+   public void remove(ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
         try {
             thucUongDao.delete(thucUong);
             sc.onSuccess();

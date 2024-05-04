@@ -3,7 +3,10 @@ package gui.employee;
 import entity.ThucUong;
 import gui.ManagerPaneView;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.table.TableModel;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import utils.RightTable;
+
 /**
  *
  * @author mac
@@ -16,6 +19,8 @@ public class FoodManagerView extends ManagerPaneView<ThucUong> {
         super();
         setTableModel();
         renderTable();
+        RightTable.setRightTable(getTblData(), 4);
+        RightTable.setRightTable(getTblData(), 5);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class NhanVienDao  implements Dao<NhanVien> {
 
     
     
-    
+   
     @Override
     public ArrayList<NhanVien> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -30,13 +30,12 @@ public class NhanVienDao  implements Dao<NhanVien> {
     }
 
     @Override
-    public void save(NhanVien t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int save(NhanVien t) throws SQLException {
+        return 1;
     }
 
     @Override
     public void update(NhanVien t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
