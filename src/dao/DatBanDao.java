@@ -20,10 +20,7 @@ public class DatBanDao implements Dao<DatBan> {
     public ArrayList<DatBan> getAll() throws SQLException {
         return null;
     }
-    
-    
-    
-    
+
 
     @Override
     public DatBan get(String id) throws SQLException {

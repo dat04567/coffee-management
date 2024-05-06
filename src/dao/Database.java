@@ -15,7 +15,7 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/coffee";
             String user = "root";
-            String password = "123456789";
+            String password = "123";
             this.conn = DriverManager.getConnection(url, user, password);
             System.out.println("Kết nối cơ sở dữ liệu thành công!");
         } catch (SQLException e) {
