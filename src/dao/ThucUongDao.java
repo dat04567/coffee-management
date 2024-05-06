@@ -53,13 +53,54 @@ public class ThucUongDao implements Dao<ThucUong>{
 
     @Override
     public void update(ThucUong t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        if (t == null) {
+            throw new SQLException("Thức uống rỗng");
+        }
+        String query = "UPDATE `ThucUong` SET `loaiNuoc` = ?, `tenNuoc` = ?, `donVi` = ?, `soLuong` = ?, `giaBan` = ? WHERE `maThucUong` = ?";
 
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setNString(1, t.getLoaiNuoc().getLabel());
+        stmt.setNString(2, t.getTenNuoc());
+        stmt.setNString(3, t.getDonViNuoc().toString());
+        stmt.setInt(4, t.getSoLuongNuoc());
+        stmt.setDouble(5, t.getGiaBan());
+        stmt.setNString(6, t.getMaNuoc());
+
+        int row = stmt.executeUpdate();
+    }
+    
+    
     @Override
     public void delete(ThucUong t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (t == null || t.getMaNuoc() == null || t.getMaNuoc().isEmpty()) {
+            throw new SQLException("Thức uống không tồn tại");
+        }
+        String query = "DELETE FROM `ThucUong` WHERE `maThucUong` = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setNString(1, t.getMaNuoc());
+        int row = stmt.executeUpdate();
     }
+    
+    
+    public ThucUong getByMaNuoc(String maNuoc) throws SQLException {
+        if (maNuoc == null || maNuoc.isEmpty()) {
+            throw new SQLException("Mã thức uống không hợp lệ");
+        }
+        String query = "SELECT * FROM `ThucUong` WHERE `maThucUong` = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setNString(1, maNuoc);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            ThucUong thucUong = ThucUong.getFromResultSet(rs);
+            return thucUong;
+        } else {
+            return null;
+        }
+    }
+//    @Override
+//    public void delete(ThucUong t) throws SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 
     @Override
     public void deleteById(int id) throws SQLException {

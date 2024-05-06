@@ -6,6 +6,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTable;
 
 
 
@@ -20,7 +21,7 @@ public abstract class ManagerController {
     public ManagerPaneView getView() {
         return view;
     }
-
+   
     public void setView(ManagerPaneView view) {
         if (this.view != view) {
             this.view = view;
@@ -29,7 +30,12 @@ public abstract class ManagerController {
             this.view = view;
         }
     }
+    protected JTable table = null;
 
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+    
     public abstract void actionAdd();
 
     public abstract void actionSearch();

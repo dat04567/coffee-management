@@ -12,6 +12,8 @@ import javax.swing.JButton;
  */
 public class OrderFoodUpdateView extends javax.swing.JFrame {
 
+    private JButton btnEdit;
+
     /**
      * Creates new form OrderFoodUpdaterView
      */
@@ -34,7 +36,14 @@ public class OrderFoodUpdateView extends javax.swing.JFrame {
         return btnCancel;
     }
 
-    
+    public JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    public void setBtnEit(JButton btnEdit) {
+        this.btnEdit = btnEdit;
+    }
+
     
     
     /**
@@ -178,4 +187,5 @@ public class OrderFoodUpdateView extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
+   
 }
