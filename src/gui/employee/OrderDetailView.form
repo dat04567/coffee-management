@@ -137,6 +137,7 @@
         <Component class="com.toedter.calendar.JDateChooser" name="onTheDay">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="maxSelectableDate" type="java.util.Date" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new java.util.Date()" type="code"/>
             </Property>
@@ -243,7 +244,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="tongTien">
           <Properties>
             <Property name="text" type="java.lang.String" value="0 VN&#x110;"/>
           </Properties>
@@ -273,7 +274,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="tienThua">
           <Properties>
             <Property name="text" type="java.lang.String" value="0 VN&#x110;"/>
           </Properties>
@@ -283,13 +284,14 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="print">
+        <Component class="javax.swing.JButton" name="cancel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="In Ho&#xe1; &#x110;&#x1a1;n"/>
+            <Property name="text" type="java.lang.String" value="Hu&#x1ef7;"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="1" gridY="4" gridWidth="1" gridHeight="1" fill="0" ipadX="25" ipadY="0" insetsTop="10" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
+              <GridBagConstraints gridX="1" gridY="4" gridWidth="1" gridHeight="1" fill="0" ipadX="50" ipadY="0" insetsTop="10" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
             </Constraint>
           </Constraints>
         </Component>

@@ -6,6 +6,9 @@ package controllers.employee;
 
 import controllers.ManagerController;
 import controllers.popup.TableOrderPopupController;
+import dao.ChiTietDatBanDao;
+import dao.DatBanDao;
+import entity.ChiTietDatBan;
 import entity.DatBan;
 import gui.popup.TablePopupView;
 import java.util.ArrayList;
@@ -16,7 +19,8 @@ import java.util.ArrayList;
  */
 public class TableOrderManagerController  extends ManagerController{
     TableOrderPopupController tableOrderPopupController = new TableOrderPopupController();
-    
+    private DatBanDao datBanDao = new DatBanDao();
+    private ChiTietDatBanDao chiTietDatBanDao = new ChiTietDatBanDao();
 
     @Override
     public void actionAdd() {
@@ -28,8 +32,8 @@ public class TableOrderManagerController  extends ManagerController{
     @Override
     public void updateData() {
         try {
-//            ArrayList<DatBan> datBans = datBanDao.getAll();
-//            view.setTableData(datBans);
+            ArrayList<ChiTietDatBan> chiTietDatBans = chiTietDatBanDao.getAll();
+            view.setTableData(chiTietDatBans);
         } catch (Exception e) {
             view.showError(e);
         }

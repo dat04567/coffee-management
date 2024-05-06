@@ -10,7 +10,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class BookTableManagerView extends ManagerPaneView<ThucUong> {
 
-    String[] list = {"Mã bàn", "Tên khách hàng", "Số điện thoại", "Thời gian đặt bàn", "Số lượng bàn",  "Hình thức thanh toán", "ghi chú"};
+    String[] list = {"Mã bàn", "Tên khách hàng", "Số điện thoại", "Thời gian đặt bàn", "Số lượng bàn", "ghi chú"};
 
     public BookTableManagerView() {
         super();

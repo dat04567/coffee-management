@@ -53,13 +53,14 @@ public class HoaDon {
         chiTietDatBans = new ArrayList<ChiTietDatBan>();
     }
 
-    public HoaDon(int maHoaDon, KhachHang khachHang, Timestamp ngayVao, OrderStatus orderStatus, HinhThucThanhToan hinhThucThanhToan, double tienKhachHang) {
+    public HoaDon(int maHoaDon, KhachHang khachHang, Timestamp ngayVao, OrderStatus orderStatus, HinhThucThanhToan hinhThucThanhToan, double tienKhachHang, Ban ban) {
         this.maHoaDon = maHoaDon;
         this.khachHang = khachHang;
         this.ngayVao = ngayVao;
         this.orderStatus = orderStatus;
         this.hinhThucThanhToan = hinhThucThanhToan;
         this.tienKhachHang = tienKhachHang;
+        this.ban = ban;
     }
     
     
@@ -160,9 +161,10 @@ public class HoaDon {
         OrderStatus status = OrderStatus.getByName(rs.getNString("trangThai"));
         HinhThucThanhToan hinhThucThanhToan = HinhThucThanhToan.getByName(rs.getNString("hinhThucThanhToan"));
         double tienKhachHang = rs.getDouble("tienKhachHang");
-    
-        HoaDon hoaDon = new HoaDon(maHoaDon, new KhachHang(maKhachHang), thoiGianVao, status, hinhThucThanhToan, tienKhachHang);
-      
+        
+        Ban ban = new Ban();
+        HoaDon hoaDon = new HoaDon(maHoaDon, new KhachHang(maKhachHang), thoiGianVao, status, hinhThucThanhToan, tienKhachHang, ban);
+        hoaDon.setChiTietHoaDons(new ArrayList<ChiTietHoaDon>());
  
         return hoaDon;
     }

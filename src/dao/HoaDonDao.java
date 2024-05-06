@@ -102,12 +102,15 @@ public class HoaDonDao implements Dao<HoaDon> {
     
     public HoaDon getByMaBan(int maBan) throws SQLException
     {
-        Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `HoaDon` WHERE maBan = " + maBan;
-        ResultSet rs = statement.executeQuery(query);
+       String query = "SELECT * FROM `HoaDon` WHERE maBan = ? AND trangThai = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, maBan);
+        stmt.setString(2, "Chưa thanh toán");
+
+        ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-             HoaDon hoaDon = HoaDon.getFromResultSet(rs);
-          
+            HoaDon hoaDon = HoaDon.getFromResultSet(rs);
+            hoaDon.setBan(new Ban(maBan));
             return hoaDon;
         }
         return new HoaDon();
@@ -115,15 +118,23 @@ public class HoaDonDao implements Dao<HoaDon> {
     
     
     
-    
-    
-    
    
     
     @Override
     public void update(HoaDon t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "UPDATE HoaDon  SET ngayVao = ?, trangThai = ?, hinhThucThanhToan = ? , tienKhachHang = ? WHERE maHoaDon = ? ";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setTimestamp(1, t.getNgayVao());
+        stmt.setNString(2, t.getOrderStatus().getName());
+        stmt.setNString(3, t.getHinhThucThanhToan().getLabel());
+        stmt.setDouble(4, t.getTienKhachHang());
+        stmt.setInt(5, t.getMaHoaDon());
+         
+        int row = stmt.executeUpdate();
+
     }
+    
+   
 
     @Override
     public void delete(HoaDon t) throws SQLException {

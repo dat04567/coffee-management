@@ -19,7 +19,7 @@ public class ThucUongDao implements Dao<ThucUong>{
     public ArrayList<ThucUong> getAll() throws SQLException {
         ArrayList<ThucUong> thucUongs = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `ThucUong`";
+        String query = "SELECT * FROM `ThucUong` WHERE isActive = TRUE ";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             ThucUong thucUong = ThucUong.getFromResultSet(rs);
@@ -38,14 +38,14 @@ public class ThucUongDao implements Dao<ThucUong>{
         if (t == null) {
             throw new SQLException("Thức uống rỗng");
         }
-        String query = "INSERT INTO `ThucUong` (`maThucUong`, `loaiNuoc`, `tenNuoc`, `donVi`, `soLuong`, `giaBan`) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `ThucUong` (`maThucUong`, `loaiNuoc`, `tenNuoc`, `donVi`, `gam`, `giaBan`) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setNString(1, t.getMaNuoc());
         stmt.setNString(2, t.getLoaiNuoc().getLabel());
         stmt.setNString(3, t.getTenNuoc());
         stmt.setNString(4, t.getDonViNuoc().toString());
-        stmt.setInt(5, t.getSoLuongNuoc());
+        stmt.setInt(5, t.getGam());
         stmt.setDouble(6, t.getGiaBan());
     
         int row = stmt.executeUpdate();
@@ -64,7 +64,7 @@ public class ThucUongDao implements Dao<ThucUong>{
         stmt.setNString(1, t.getLoaiNuoc().getLabel());
         stmt.setNString(2, t.getTenNuoc());
         stmt.setNString(3, t.getDonViNuoc().toString());
-        stmt.setInt(4, t.getSoLuongNuoc());
+        stmt.setInt(4, t.getGam());
         stmt.setDouble(5, t.getGiaBan());
         stmt.setNString(6, t.getMaNuoc());
 
@@ -79,7 +79,7 @@ public class ThucUongDao implements Dao<ThucUong>{
         if (t == null || t.getMaNuoc() == null || t.getMaNuoc().isEmpty()) {
             throw new SQLException("Thức uống không tồn tại");
         }
-        String query = "DELETE FROM `ThucUong` WHERE `maThucUong` = ?";
+        String query = "UPDATE  `ThucUong` SET isActive = FALSE WHERE `maThucUong` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setNString(1, t.getMaNuoc());
         int row = stmt.executeUpdate();

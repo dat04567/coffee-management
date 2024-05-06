@@ -1,11 +1,14 @@
 package gui.popup;
 
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import utils.ErrorPopup;
 
@@ -16,6 +19,7 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
     public TablePopupView() {
         initComponents();
         setLocationRelativeTo(null);
+        ((JTextFieldDateEditor) thoiGianDatBan.getDateEditor()).setEditable(false);
     }
 
     public void showError(String message) {
@@ -39,11 +43,16 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
     }
 
     public JTextField getMaBan() {
-        return maBan;
+        return maDatBan;
     }
 
+    public JTextArea getGhiChuArea() {
+        return ghiChuArea;
+    }
+    
+
     public void setMaBan(JTextField maBan) {
-        this.maBan = maBan;
+        this.maDatBan = maBan;
     }
 
     public JLabel getMaBanLbl() {
@@ -101,13 +110,14 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        maBan = new javax.swing.JTextField();
+        maDatBan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         spnCount = new javax.swing.JSpinner();
         tenKhachHang = new javax.swing.JTextField();
         thoiGianDatBan = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ghiChuArea = new javax.swing.JTextArea();
+        ghiChu = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -133,6 +143,17 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(maBanLbl, gridBagConstraints);
+
+        soDienThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soDienThoaiActionPerformed(evt);
+            }
+        });
+        soDienThoai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soDienThoaiKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -175,7 +196,7 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.ipadx = 136;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(maBan, gridBagConstraints);
+        jPanel1.add(maDatBan, gridBagConstraints);
 
         jLabel3.setText("Số điện thoại:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -185,15 +206,6 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel3, gridBagConstraints);
-
-        jLabel7.setText("Hình thức thanh toán:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jLabel7, gridBagConstraints);
 
         spnCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 25, 1));
         spnCount.setOpaque(true);
@@ -212,6 +224,7 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(tenKhachHang, gridBagConstraints);
 
+        thoiGianDatBan.setMaxSelectableDate(new java.util.Date(253370743303000L));
         thoiGianDatBan.setMinSelectableDate(new java.util.Date());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -220,13 +233,31 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(thoiGianDatBan, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiền mặt", "Chuyển khoản" }));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(90, 90));
+        jScrollPane1.setSize(new java.awt.Dimension(118, 91));
+
+        ghiChuArea.setColumns(20);
+        ghiChuArea.setLineWrap(true);
+        ghiChuArea.setRows(5);
+        ghiChuArea.setBounds(new java.awt.Rectangle(0, 0, 50, 50));
+        ghiChuArea.setPreferredSize(new java.awt.Dimension(50, 20));
+        jScrollPane1.setViewportView(ghiChuArea);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel1.add(jScrollPane1, gridBagConstraints);
+
+        ghiChu.setText("Ghi Chú");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jComboBox1, gridBagConstraints);
+        jPanel1.add(ghiChu, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -252,21 +283,36 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void soDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soDienThoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_soDienThoaiActionPerformed
+
+    private void soDienThoaiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soDienThoaiKeyTyped
+
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') ||
+           (c == KeyEvent.VK_BACK_SPACE) ||
+           (c == KeyEvent.VK_DELETE))) {
+          evt.consume();
+        }
+    }//GEN-LAST:event_soDienThoaiKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel ghiChu;
+    private javax.swing.JTextArea ghiChuArea;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTitle;
-    private javax.swing.JTextField maBan;
     private javax.swing.JLabel maBanLbl;
+    private javax.swing.JTextField maDatBan;
     private javax.swing.JTextField soDienThoai;
     private javax.swing.JSpinner spnCount;
     private javax.swing.JTextField tenKhachHang;

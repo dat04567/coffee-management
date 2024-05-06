@@ -4,13 +4,18 @@
  */
 package gui.employee;
 
+import com.toedter.calendar.JDateChooser;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.ThucUong;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import utils.ErrorPopup;
@@ -34,7 +39,8 @@ public class OrderDetailView extends javax.swing.JPanel {
     public OrderDetailView() {
         initComponents();
         pay.setIcon(im.getIcon("pay.png"));
-        print.setIcon(im.getIcon("printer.png"));
+      
+        cancel.setIcon(im.getIcon("multiply.png"));
         hoaDon = new HoaDon();
         orderTableModel = new OrderTableModel(hoaDon.getChiTietHoaDons());
         tableFood.setModel(orderTableModel);
@@ -58,9 +64,11 @@ public class OrderDetailView extends javax.swing.JPanel {
     
     public void setTableData(ArrayList<ChiTietHoaDon> chiTietHoaDons)
     {
+        hoaDon.setChiTietHoaDons(chiTietHoaDons);
         orderTableModel.setChiTietHoaDons(chiTietHoaDons);
         orderTableModel.fireTableDataChanged();
     }
+    
 
    
     public  void addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon)
@@ -104,31 +112,39 @@ public class OrderDetailView extends javax.swing.JPanel {
     {
         return orderTableModel;
     }
+
+    public JLabel getTongTien() {
+        return tongTien;
+    }
+
+    public JLabel getTienThua() {
+        return tienThua;
+    }
+
+    public JSpinner getTienNhanCuaKhach() {
+        return tienNhanCuaKhach;
+    }
+
+    public JButton getPay() {
+        return pay;
+    }
+
+    public JDateChooser getOnTheDay() {
+        return onTheDay;
+    }
+
+    public JComboBox<String> getPayments() {
+        return payments;
+    }
+
+       public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
     
-  
     
-//    public void setTableData(ArrayList<ThucUong> tableData) {
-//  
-//        for (ThucUong item : tableData) {
-//
-//            if(!this.tableData.contains(item))
-//            { 
-//               this.tableData.add(item);
-//               orderTableModel.fireTableDataChanged();
-//            }  else 
-//            {
-//                int row = findIndexRow(item.getMaNuoc());
-//        
-//                orderTableModel.increment(row);
-//                orderTableModel.fireTableRowsUpdated(row, row);
-//                return;
-//            }
-//                      
-//
-//        }
-//        
-//    }
     
+    
+
      public void showError(String message) {
         ErrorPopup.show(new Exception(message));
     }
@@ -162,11 +178,11 @@ public class OrderDetailView extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         pay = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        tongTien = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        print = new javax.swing.JButton();
+        tienThua = new javax.swing.JLabel();
+        cancel = new javax.swing.JButton();
         tienNhanCuaKhach = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         payments = new javax.swing.JComboBox<>();
@@ -197,6 +213,7 @@ public class OrderDetailView extends javax.swing.JPanel {
         jLabel2.setText("Ngày vào");
 
         onTheDay.setToolTipText("");
+        onTheDay.setEnabled(false);
         onTheDay.setMaxSelectableDate(new java.util.Date());
         onTheDay.setMinSelectableDate(new java.util.Date());
         onTheDay.setOpaque(false);
@@ -301,14 +318,14 @@ public class OrderDetailView extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         jPanel3.add(jLabel4, gridBagConstraints);
 
-        jLabel5.setText("0 VNĐ");
+        tongTien.setText("0 VNĐ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(jLabel5, gridBagConstraints);
+        jPanel3.add(tongTien, gridBagConstraints);
 
         jLabel6.setText("Tiền nhận của khách");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -326,22 +343,23 @@ public class OrderDetailView extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         jPanel3.add(jLabel7, gridBagConstraints);
 
-        jLabel8.setText("0 VNĐ");
+        tienThua.setText("0 VNĐ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(jLabel8, gridBagConstraints);
+        jPanel3.add(tienThua, gridBagConstraints);
 
-        print.setText("In Hoá Đơn");
+        cancel.setText("Huỷ");
+        cancel.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        jPanel3.add(print, gridBagConstraints);
+        jPanel3.add(cancel, gridBagConstraints);
 
         tienNhanCuaKhach.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 10000.0d));
         tienNhanCuaKhach.setPreferredSize(new java.awt.Dimension(200, 23));
@@ -383,15 +401,14 @@ public class OrderDetailView extends javax.swing.JPanel {
     private javax.swing.JButton btnChoose;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton cancel;
     private javax.swing.JTextField customerName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -399,8 +416,9 @@ public class OrderDetailView extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser onTheDay;
     private javax.swing.JButton pay;
     private javax.swing.JComboBox<String> payments;
-    private javax.swing.JButton print;
     private javax.swing.JTable tableFood;
     private javax.swing.JSpinner tienNhanCuaKhach;
+    private javax.swing.JLabel tienThua;
+    private javax.swing.JLabel tongTien;
     // End of variables declaration//GEN-END:variables
 }

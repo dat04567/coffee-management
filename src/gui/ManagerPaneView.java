@@ -42,6 +42,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         tableModel.setNumRows(0);
         try {
             for (T item : tableData) {
+                System.out.println(item.toRowTable());
                 tableModel.addRow(item.toRowTable());
             }
         } catch (Exception e) {

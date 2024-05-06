@@ -102,6 +102,8 @@ public class EmployeeDashboardController {
             if (confirm != JOptionPane.YES_OPTION) {
                 return;
             }
+            
+            
            
             view.dispose();
             new LoginController(new LoginView());
@@ -120,17 +122,12 @@ public class EmployeeDashboardController {
             case "QLDB":// Quản lý đặt bàn
                 view.setPanel(orderTableManagerView);
                 tableOrderManagerController.setView(orderTableManagerView);
-//                tableOrderManagerController.
-//                customerManagerController.setView(customerManagerView);
-//                customerManagerController.updateData();
+                tableOrderManagerController.updateData(); 
                 break;
             case "BH"://Bán hàng
                 view.setPanel(orderManagerView);
                 
-                
-                
-//                shipmentManagerController.setView(shipmentManagerView);
-//                shipmentManagerController.updateData();
+               
                 break;
             case "VCT":
                 view.setPanel(aboutView);

@@ -54,10 +54,7 @@ public  class OrderManagerView extends javax.swing.JPanel {
         return cardLayout;
     }
     
-    
-    
-    
-    
+   
     
 
     

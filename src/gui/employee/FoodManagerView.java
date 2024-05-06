@@ -13,7 +13,7 @@ import utils.RightTable;
  */
 public class FoodManagerView extends ManagerPaneView<ThucUong> {
 
-    String[] list = {"Mã thức uống", "Loại nước", "Tên nước","Đơn Vị", "Số lượng", "Giá Bán"};
+    String[] list = {"Mã thức uống", "Loại nước", "Tên nước","Đơn Vị", "Gam", "Giá Bán"};
 
     public FoodManagerView() {
         super();

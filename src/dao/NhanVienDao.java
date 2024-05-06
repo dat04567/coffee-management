@@ -50,11 +50,11 @@ public class NhanVienDao  implements Dao<NhanVien> {
     
     public NhanVien findByUsername(String userName) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM NhanVien WHERE  NhanVien.username = '" + userName + "'";
+        String query = "SELECT * FROM NhanVien WHERE  NhanVien.taiKhoan = '" + userName + "'";
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
-//            NhanVien employee = NhanVien.getFromResultSet(rs);
-//            return employee;
+            NhanVien employee = NhanVien.getFromResultSet(rs);
+            return employee;
         }
         return null;
     }

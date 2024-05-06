@@ -49,6 +49,16 @@ public class KhachHangDao implements Dao<KhachHang>{
         
     }
 
+    
+    public void updateTenKhachHang(KhachHang t) throws SQLException
+    {
+        String sql = "UPDATE KhachHang  SET tenKhachHang = ?  WHERE maKhachHang = ? ";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setNString(1, t.getTenKhachHang());
+        stmt.setInt(2, t.getMaKhachHang());
+       
+        int row = stmt.executeUpdate();
+    }
     @Override
     public void update(KhachHang t) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

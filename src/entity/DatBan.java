@@ -9,18 +9,23 @@ package entity;
  * @author mac
  */
 public class DatBan {
-    private String maBan, soDienThoai;
+    private String maBan;
     private int soLuongBan;
-    private HinhThucThanhToan hinhThucThanhToan;
+    private  KhachHang khachHang;
     private String ghiChu;
 
-    public DatBan(String maBan, String soDienThoai, int soLuongBan, HinhThucThanhToan hinhThucThanhToan, String ghiChu) {
+    public DatBan(String maBan, int soLuongBan, KhachHang khachHang, String ghiChu) {
         this.maBan = maBan;
-        this.soDienThoai = soDienThoai;
         this.soLuongBan = soLuongBan;
-        this.hinhThucThanhToan = hinhThucThanhToan;
+        this.khachHang = khachHang;
         this.ghiChu = ghiChu;
     }
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    
 
     public String getMaBan() {
         return maBan;
@@ -30,14 +35,7 @@ public class DatBan {
         this.maBan = maBan;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
-    }
-
+    
     public int getSoLuongBan() {
         return soLuongBan;
     }
@@ -46,13 +44,7 @@ public class DatBan {
         this.soLuongBan = soLuongBan;
     }
 
-    public HinhThucThanhToan getHinhThucThanhToan() {
-        return hinhThucThanhToan;
-    }
-
-    public void setHinhThucThanhToan(HinhThucThanhToan hinhThucThanhToan) {
-        this.hinhThucThanhToan = hinhThucThanhToan;
-    }
+   
 
     public String getGhiChu() {
         return ghiChu;

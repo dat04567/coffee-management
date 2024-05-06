@@ -110,11 +110,14 @@ public class OrderFoodPopupController {
                 HoaDon newHoaDon = hoaDonDao.createNewHoaDon(ban);
                 hoaDon.setMaHoaDon(newHoaDon.getMaHoaDon());
                 hoaDon.setKhachHang(newHoaDon.getKhachHang()); 
+                hoaDon.setBan(ban);
                 banDao.updateStatus(ban);
                 chiTietHoaDonDao.save(chiTietHoaDon);
                 
+                
             } else {
                 chiTietHoaDonDao.save(chiTietHoaDon);
+               
             }
       
 

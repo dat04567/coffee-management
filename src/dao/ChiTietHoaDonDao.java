@@ -75,11 +75,40 @@ public class ChiTietHoaDonDao implements Dao<ChiTietHoaDon> {
             
               chiTietHoaDons.add(chiTietHoaDon);
         }
-
       
         return chiTietHoaDons;
     }
- 
+    
+    public double getTongTienByMaHoaDon(int maHoaDon) throws SQLException
+    {
+        
+        String query = "SELECT hd.maHoaDon, SUM(tu.giaBan * cthd.soLuong) AS tongTien " +
+                        "FROM HoaDon hd " +
+                        "JOIN ChiTietHoaDon cthd ON hd.maHoaDon = cthd.maHoaDon " +
+                        "JOIN ThucUong tu ON cthd.maThucUong = tu.maThucUong " +
+                        "WHERE hd.maHoaDon = ? "+ 
+                        "GROUP BY hd.maHoaDon ";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, maHoaDon);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            return rs.getDouble("tongTien");
+        } else {
+            return 0;
+        }
+    }
+     
+    
+    public double tinhTienThuaKhachHang(double tienKhachHang, int maHoaDon) throws SQLException
+    {
+        return tienKhachHang - getTongTienByMaHoaDon(maHoaDon);
+    }
+  
+
+    
+    
    
 
     @Override

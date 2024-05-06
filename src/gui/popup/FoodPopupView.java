@@ -175,7 +175,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel4, gridBagConstraints);
 
-        jLabel5.setText("Số lượng:");
+        jLabel5.setText("Gam:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -219,7 +219,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(spnSalary, gridBagConstraints);
 
-        spnCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 500, 1));
+        spnCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 500, 100));
         spnCount.setOpaque(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;

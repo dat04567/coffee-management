@@ -10,6 +10,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
+import utils.FormatVND;
 
 /**
  *
@@ -29,6 +30,11 @@ public class OrderTableModel  extends AbstractTableModel{
         this.chiTietHoaDons = chiTietHoaDons;
     }
 
+    public ArrayList<ChiTietHoaDon> getChiTietHoaDons() {
+        return chiTietHoaDons;
+    }
+
+    
     
     
     public void setMaHoaDon(int maHoaDon) {
@@ -69,12 +75,6 @@ public class OrderTableModel  extends AbstractTableModel{
         return getValueAt(0, columnIndex).getClass(); 
     }
 
-     private String formatVND(double  price)
-    {
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
-        return currencyFormatter.format(price);
-    }
      
      
     
@@ -84,7 +84,7 @@ public class OrderTableModel  extends AbstractTableModel{
         return switch(columnIndex) {
             case 0 -> chiTietHoaDon.getThucUong().getMaNuoc();
             case 1 -> chiTietHoaDon.getThucUong().getTenNuoc();
-            case 2 -> formatVND(chiTietHoaDon.getGiaTien());
+            case 2 -> FormatVND.getFormat(chiTietHoaDon.getGiaTien());
             case 3 -> chiTietHoaDon.getSoLuong();
             case 4 -> chiTietHoaDon.getGhiChu();
             default -> null;

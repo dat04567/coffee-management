@@ -17,16 +17,16 @@ public class ThucUong extends Model{
     private String maNuoc, tenNuoc;
     private LoaiNuoc loaiNuoc;
     private DonViNuoc donViNuoc;
-    private int soLuongNuoc;
+    private int gam;
     private double giaBan;
    
 
-    public ThucUong(String maNuoc, String tenNuoc, LoaiNuoc loaiNuoc, DonViNuoc donViNuoc,  int soLuongNuoc, double giaBan) {
+    public ThucUong(String maNuoc, String tenNuoc, LoaiNuoc loaiNuoc, DonViNuoc donViNuoc,  int gam, double giaBan) {
         this.maNuoc = maNuoc;
         this.tenNuoc = tenNuoc;
         this.loaiNuoc = loaiNuoc;
         this.donViNuoc = donViNuoc;
-        this.soLuongNuoc = soLuongNuoc;
+        this.gam = gam;
         this.giaBan = giaBan;
 
     }
@@ -77,13 +77,11 @@ public class ThucUong extends Model{
         this.donViNuoc = donViNuoc;
     }
 
-    public int getSoLuongNuoc() {
-        return soLuongNuoc;
+    public int getGam() {
+        return gam;
     }
 
-    public void setSoLuongNuoc(int soLuongNuoc) {
-        this.soLuongNuoc = soLuongNuoc;
-    }
+    
 
     public double getGiaBan() {
         return giaBan;
@@ -111,10 +109,10 @@ public class ThucUong extends Model{
         String loaiNuoc = rs.getNString("loaiNuoc");
         String tenNuoc = rs.getNString("tenNuoc");
         String donVi = rs.getNString("donVi");
-        int soLuong = rs.getInt("soLuong");
+        int gam = rs.getInt("gam");
         double giaBan = rs.getDouble("giaBan");
         DonViNuoc dv = donVi.equals("Chai") ? DonViNuoc.Chai : DonViNuoc.Ly;
-        ThucUong thucUong = new ThucUong(maNuoc, tenNuoc, LoaiNuoc.getByName(loaiNuoc), dv, soLuong, giaBan);
+        ThucUong thucUong = new ThucUong(maNuoc, tenNuoc, LoaiNuoc.getByName(loaiNuoc), dv, gam , giaBan);
  
         return thucUong;
     }
@@ -136,20 +134,20 @@ public class ThucUong extends Model{
     public Object[] toRowTable() {
     
           return new Object[]{
-            this.maNuoc, this.loaiNuoc.getLabel(), this.tenNuoc, this.donViNuoc, this.soLuongNuoc,this.formatVND()
+            this.maNuoc, this.loaiNuoc.getLabel(), this.tenNuoc, this.donViNuoc, this.gam,this.formatVND()
         };
     }
     
     public  Object[] toRowTableOrder(){
          return new Object[]{
-            this.maNuoc, this.tenNuoc, this.formatVND() , this.soLuongNuoc,
+            this.maNuoc, this.tenNuoc, this.formatVND() , this.gam,
         };
     }
     
     public  Object[] toRowTablePopUp()
     {
         return new Object[]{
-            this.maNuoc, this.tenNuoc,this.formatVND() , this.soLuongNuoc,
+            this.maNuoc, this.tenNuoc,this.formatVND() , this.gam,
         };
     }
 

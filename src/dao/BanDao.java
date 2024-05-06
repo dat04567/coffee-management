@@ -44,7 +44,6 @@ public class BanDao implements Dao<Ban>{
     }
      public void updateStatus(Ban ban) throws SQLException
      {
-         System.out.println(ban.getMaBan());
         String query = "UPDATE `Ban` SET `trangThai` = ? WHERE `maBan` = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);

@@ -20,6 +20,12 @@ public class Ban {
         soChoNgoi = 2;
         status = TableStatus.FREE;
     }    
+
+    public Ban(int maBan) {
+        this.maBan = maBan;
+    }
+    
+    
     
     public Ban(int maBan, int soChoNgoi, TableStatus status) {
         this.maBan = maBan;

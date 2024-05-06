@@ -8,6 +8,7 @@ package controllers.employee;
 import dao.BanDao;
 import dao.HoaDonDao;
 import entity.Ban;
+import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import gui.employee.OrderManagerView;
 import gui.employee.BookTableManagerView;
@@ -78,6 +79,7 @@ public class TableController {
                 HoaDon hoaDon =  hoaDonDao.getByMaBan(ban.getMaBan());
                 orderDetailController.addOrderDetail(view, hoaDon, i);
                 orderDetailController.updateData();
+               
             } catch (Exception e) {
                 view.showError(e);
             }          
