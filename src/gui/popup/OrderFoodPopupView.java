@@ -4,11 +4,15 @@
  */
 package gui.popup;
 
+import entity.ThucUong;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import utils.ErrorPopup;
+import utils.RightTable;
 
 /**
  *
@@ -22,27 +26,81 @@ public class OrderFoodPopupView extends javax.swing.JFrame {
     
     
     String[] list = {"Mã thức uống",  "Tên nước", "Giá Bán", "Số lượng"};
+    ArrayList<ThucUong> tableData = new ArrayList<>();
   
-    DefaultTableModel tableModel = new DefaultTableModel();
+    DefaultTableModel tableModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+           return false;
+        }; 
+    };
     public OrderFoodPopupView() {
         initComponents();
         setLocationRelativeTo(null);
         menuFood.setModel(tableModel);
-      
         setTableModel();
+        RightTable.setRightTable(menuFood, 2);
+        RightTable.setRightTable(menuFood, 3);        
         
-        
-        
-       
+
         pack();
          
     }
-      public void setTableModel() {
+    
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+
+    public void showError(Exception e) {
+        ErrorPopup.show(e);
+    }
+
+    
+     public void renderTable() {
+        tableModel.setNumRows(0);
+        try {
+            for (ThucUong item : tableData) {
+                tableModel.addRow(item.toRowTablePopUp());
+            }
+        } catch (Exception e) {
+            showError(e);
+        }
+    }
+     
+     public void setTableData(ArrayList<ThucUong> tableData) {
+        this.tableData = tableData;
+        
+        renderTable();
+    }
+     
+     
+     
+
+    public String[] getSelectedIds() {
+        int selectedRows[] = menuFood.getSelectedRows();
+        String selectedIds[] = new String[selectedRows.length];
+        
+        for (int i = 0; i < selectedRows.length; i++) {
+            int selectedRow = selectedRows[i];
+            String id = menuFood.getValueAt(selectedRow, 0).toString();
+            selectedIds[i] = id;
+        }
+        
+        return selectedIds;
+    }
+ 
+     
+     public void setTableModel() {
           for (String string : list) {
               tableModel.addColumn(string);
         }
-
     }
+
+    public JButton getBtnAdd() {
+        return btnAdd;
+    }
+      
+     
     
    
       
@@ -69,7 +127,7 @@ public class OrderFoodPopupView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         menuFood = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -141,13 +199,13 @@ public class OrderFoodPopupView extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(100, 50));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setBackground(new java.awt.Color(0, 129, 215));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Chọn và đóng");
+        btnAdd.setBackground(new java.awt.Color(0, 129, 215));
+        btnAdd.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Chọn và đóng");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.weightx = 0.5;
-        jPanel2.add(jButton1, gridBagConstraints);
+        jPanel2.add(btnAdd, gridBagConstraints);
 
         btnCancel.setBackground(java.awt.Color.red);
         btnCancel.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
@@ -196,9 +254,9 @@ public class OrderFoodPopupView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JTextField btnSearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

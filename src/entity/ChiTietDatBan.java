@@ -1,97 +1,104 @@
 
 package entity;
 
+import java.sql.Timestamp;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author mac
  */
-public class ChiTietDatBan {
-   private String tenKH,maBan, ghiChu;
-   private int soLuongBan;
-   private int sdt;
-   private LocalDate thoiGian, ngayThang;
-   private ChiTietDatBan chiTietDatBan;
-
-    public ChiTietDatBan(String tenKH, String maBan, String ghiChu, int soLuongBan, int sdt, LocalDate thoiGian, LocalDate ngayThang, ChiTietDatBan chiTietDatBan) {
-        this.tenKH = tenKH;
-        this.maBan = maBan;
-        this.ghiChu = ghiChu;
-        this.soLuongBan = soLuongBan;
-        this.sdt = sdt;
-        this.thoiGian = thoiGian;
-        this.ngayThang = ngayThang;
-        this.chiTietDatBan = chiTietDatBan;
-    }
+public class ChiTietDatBan extends Model{
+    private Timestamp thoiGianDatBan;
+    private HoaDon hoaDon;
    
-   
+    private DatBan datBan;
 
-    public String getTenKH() {
-        return tenKH;
+    public ChiTietDatBan(Timestamp thoiGianDatBan, HoaDon hoaDon, DatBan datBan) {
+        this.thoiGianDatBan = thoiGianDatBan;
+        this.hoaDon = hoaDon;
+        this.datBan = datBan;
     }
 
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
+    public ChiTietDatBan(Timestamp thoiGianDatBan, DatBan datBan) {
+        this.thoiGianDatBan = thoiGianDatBan;
+        this.datBan = datBan;
+    }
+    
+    
+
+    
+    public Timestamp getThoiGianDatBan() {
+        return thoiGianDatBan;
     }
 
-    public String getMaBan() {
-        return maBan;
+    public void setThoiGianDatBan(Timestamp thoiGianDatBan) {
+        this.thoiGianDatBan = thoiGianDatBan;
     }
 
-    public void setMaBan(String maBan) {
-        this.maBan = maBan;
+    public HoaDon getHoaDon() {
+        return hoaDon;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
     }
 
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public DatBan getDatBan() {
+        return datBan;
     }
 
-    public int getSoLuongBan() {
-        return soLuongBan;
+    public void setDatBan(DatBan datBan) {
+        this.datBan = datBan;
     }
-
-    public void setSoLuongBan(int soLuongBan) {
-        this.soLuongBan = soLuongBan;
-    }
-
-    public int getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(int sdt) {
-        this.sdt = sdt;
-    }
-
-    public LocalDate getThoiGian() {
-        return thoiGian;
-    }
-
-    public void setThoiGian(LocalDate thoiGian) {
-        this.thoiGian = thoiGian;
-    }
-
-    public LocalDate getNgayThang() {
-        return ngayThang;
-    }
-
-    public void setNgayThang(LocalDate ngayThang) {
-        this.ngayThang = ngayThang;
-    }
-
-    public ChiTietDatBan getChiTietDatBan() {
+    
+    public  static ChiTietDatBan getFromResultSet(ResultSet rs) throws SQLException
+    {
+        Timestamp thoiGianDatBan = rs.getTimestamp("thoiGianDatBan");
+        String maDatBan = rs.getNString("maDatBan");
+        int soLuongBan = rs.getInt("soLuongBan");
+        String ghiChu = rs.getNString("ghiChu");
+        String tenKhachHang = rs.getNString("tenKhachHang");
+        String soDienThoai = rs.getNString("soDienThoai");
+        KhachHang khachHang = new KhachHang(tenKhachHang, soDienThoai);
+        DatBan datBan = new DatBan(maDatBan, soLuongBan, khachHang, ghiChu);
+        
+        ChiTietDatBan chiTietDatBan = new ChiTietDatBan(thoiGianDatBan, datBan);
         return chiTietDatBan;
+        
+        
     }
 
-    public void setChiTietDatBan(ChiTietDatBan chiTietDatBan) {
-        this.chiTietDatBan = chiTietDatBan;
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Object[] toRowTable() {
+     
+            DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE.ofPattern("dd-MM-yyyy");
+            LocalDateTime localDateTime = this.thoiGianDatBan.toLocalDateTime();
+          
+          return new Object[]{
+            this.datBan.getMaBan(), this.datBan.getKhachHang().getTenKhachHang(),  this.datBan.getKhachHang().getSoDienThoai(), localDateTime.format(formatter) , 
+              this.datBan.getSoLuongBan(), this.datBan.getGhiChu()
+        };
+    }
+    
+    
+    
+    
+
    
-   
+    
+    
+  
    
    
 

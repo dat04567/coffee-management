@@ -175,7 +175,7 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel4, gridBagConstraints);
 
-        jLabel5.setText("Số lượng:");
+        jLabel5.setText("Gam:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -210,7 +210,8 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel7, gridBagConstraints);
 
-        spnSalary.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 5.0E7d, 100000.0d));
+        spnSalary.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 500000.0d, 10000.0d));
+        spnSalary.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
@@ -218,7 +219,8 @@ public class FoodPopupView extends javax.swing.JFrame implements PopupView {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(spnSalary, gridBagConstraints);
 
-        spnCount.setModel(new javax.swing.SpinnerNumberModel(0, 0, 50000000, 100000));
+        spnCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 500, 100));
+        spnCount.setOpaque(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;

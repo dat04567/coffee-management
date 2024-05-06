@@ -9,6 +9,7 @@ package controllers;
 import controllers.employee.FoodManagerController;
 import controllers.employee.OrderManagerController;
 import controllers.employee.TableController;
+import controllers.employee.TableOrderManagerController;
 import gui.AboutView;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -34,7 +35,10 @@ import utils.IconManager;
 public class EmployeeDashboardController {
 
     private EmployeeDashboardView view;
-    ManagerController foodManagerController = new FoodManagerController();
+    ManagerController foodManagerController = new FoodManagerController(),
+                      tableOrderManagerController = new TableOrderManagerController();
+    
+    
     OrderManagerController orderManagerController;
   
     HomeView homeView = new HomeView();
@@ -45,6 +49,7 @@ public class EmployeeDashboardController {
 
     SideBarController sideBarController;
     TableController tableController;
+    
     JPanel[] cards = {homeView, aboutView, foodManagerView, orderManagerView, orderTableManagerView};
 
     public EmployeeDashboardController(EmployeeDashboardView view) {
@@ -97,6 +102,8 @@ public class EmployeeDashboardController {
             if (confirm != JOptionPane.YES_OPTION) {
                 return;
             }
+            
+            
            
             view.dispose();
             new LoginController(new LoginView());
@@ -114,16 +121,13 @@ public class EmployeeDashboardController {
                 break;
             case "QLDB":// Quản lý đặt bàn
                 view.setPanel(orderTableManagerView);
-//                customerManagerController.setView(customerManagerView);
-//                customerManagerController.updateData();
+                tableOrderManagerController.setView(orderTableManagerView);
+                tableOrderManagerController.updateData(); 
                 break;
             case "BH"://Bán hàng
                 view.setPanel(orderManagerView);
                 
-                
-                
-//                shipmentManagerController.setView(shipmentManagerView);
-//                shipmentManagerController.updateData();
+               
                 break;
             case "VCT":
                 view.setPanel(aboutView);

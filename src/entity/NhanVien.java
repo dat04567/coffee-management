@@ -1,7 +1,8 @@
 package entity;
 
 
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author mac
@@ -21,6 +22,14 @@ public class NhanVien {
         this.sdt = sdt;
         this.isNam = isNam;
     }
+
+    public NhanVien(String username, String password, String hoTen) {
+        this.username = username;
+        this.password = password;
+        this.hoTen = hoTen;
+    }
+    
+    
 
     public String getHoTen() {
         return hoTen;
@@ -86,5 +95,18 @@ public class NhanVien {
         this.isNam = isNam;
     }
     
-    
+     public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+     
+     public static NhanVien getFromResultSet(ResultSet rs) throws SQLException
+     {
+         String userName = rs.getNString("taiKhoan");
+         String matKhau = rs.getNString("matKhau");
+         String hoTen = rs.getNString("hoTen");
+         NhanVien nhanVien = new NhanVien(userName, matKhau, hoTen);
+         return nhanVien;
+         
+     }
+     
 }

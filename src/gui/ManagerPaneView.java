@@ -17,38 +17,39 @@ import javax.swing.table.DefaultTableModel;
 import utils.ErrorPopup;
 import utils.IconManager;
 
-
 public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
-    protected DefaultTableModel tableModel = new DefaultTableModel(){
+    protected DefaultTableModel tableModel = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
-           return false;
+            return false;
         }
-        
+
     };
     IconManager im = new IconManager();
     ArrayList<T> tableData = new ArrayList<>();
+
     public ArrayList<T> getTableData() {
         return tableData;
     }
-    public void setTableData(ArrayList<T> tableData) {
-    this.tableData = tableData;
-    renderTable();
-}
 
-    
-    
+    public void setTableData(ArrayList<T> tableData) {
+        this.tableData = tableData;
+        renderTable();
+    }
+
     public void renderTable() {
         tableModel.setNumRows(0);
         try {
             for (T item : tableData) {
+                System.out.println(item.toRowTable());
                 tableModel.addRow(item.toRowTable());
             }
         } catch (Exception e) {
             showError(e);
         }
     }
+
     public ManagerPaneView() {
         initComponents();
         tblData.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -56,12 +57,14 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         ((DefaultTableCellRenderer) tblData.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.LEFT);
         tblData.setAutoCreateRowSorter(true);
-        
- 
-        
+
         tblData.setModel(tableModel);;
-        
-   
+
+    }
+    
+    public  int  getLengthTableData()
+    {
+        return tableData.size();
     }
 
     public JComboBox<String> getCboSearch() {
@@ -71,8 +74,6 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
     public void setCboSearch(JComboBox<String> cboSearch) {
         this.cboSearch = cboSearch;
     }
-
-    
 
     public JTextField getTxtSearch() {
         return txtSearch;
@@ -111,9 +112,6 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         return btnEdit;
     }
 
-
-    
-
     public JTable getTblData() {
         return tblData;
     }
@@ -122,9 +120,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
     public int[] getSelectedIds() {
         int selectedRows[] = tblData.getSelectedRows();
         int selectedIds[] = new int[selectedRows.length];
-        
-        
-        
+
         for (int i = 0; i < selectedRows.length; i++) {
             int selectedRow = selectedRows[i];
             int id = (int) tblData.getValueAt(selectedRow, 0);
@@ -143,8 +139,6 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         int id = (int) tblData.getValueAt(selectedRow, 0);
         return id;
     }
-
-    
 
     public abstract void setTableModel();
 

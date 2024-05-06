@@ -55,7 +55,7 @@ public class FoodPopupController {
                 loaiNuoc = view.getLoaiNuoc().getSelectedItem().toString(),
                 donVi = view.getDonVi().getSelectedItem().toString(),
                 tenNuoc = view.getTenNuoc().getText().toString();
-        int soLuong = (Integer) (view.getSpnCount().getValue());
+        int gam = (Integer) (view.getSpnCount().getValue());
         
         double giaBan = (Double) (view.getSpnSalary().getValue());
      
@@ -67,12 +67,17 @@ public class FoodPopupController {
             throw new Exception("Giá bán không thể âm");
         }
         
-         if (soLuong <  0) {
+         if (gam <  0) {
             throw new Exception("Số lượng không thể âm");
+        }
+         
+         if(!maThucUong.matches( "^TU\\d+$"))
+        {
+              throw new Exception("Bạn không không đúng với định dạng vd ( TU + số ) ");
         }
          DonViNuoc dvn =  donVi.equals("Chai") ? DonViNuoc.Chai : DonViNuoc.Ly;
          
-         ThucUong thucUong = new ThucUong(maThucUong, tenNuoc, LoaiNuoc.getByName(loaiNuoc) , dvn,  soLuong, giaBan);
+         ThucUong thucUong = new ThucUong(maThucUong, tenNuoc, LoaiNuoc.getByName(loaiNuoc) , dvn,  gam , giaBan);
         try {
             thucUongDao.save(thucUong);
         } catch (SQLException e) {
@@ -82,6 +87,7 @@ public class FoodPopupController {
         }
         
         
+    
         return;
     }
     
@@ -95,12 +101,13 @@ public class FoodPopupController {
         view.setVisible(true);
         view.getBtnCancel().addActionListener(evt -> view.dispose());
 
-        view.getLbTitle().setText("Sửa thức uống - ");
+        view.getLbTitle().setText("Sửa thức uống");
         view.getMaThucUong().setText(thucUong.getMaNuoc());
+        view.getMaThucUong().setEditable(false);
         view.getTenNuoc().setText(thucUong.getTenNuoc());
         view.getLoaiNuoc().setSelectedItem(thucUong.getLoaiNuoc());
         view.getDonVi().setSelectedItem(thucUong.getDonViNuoc());
-        view.getSpnCount().setValue(thucUong.getSoLuongNuoc());
+        view.getSpnCount().setValue(thucUong.getGam());
         view.getSpnSalary().setValue(thucUong.getGiaBan());
         view.getBtnOK().setText("Cập nhật");
         view.getBtnOK().addActionListener(evt -> {
@@ -117,32 +124,42 @@ public class FoodPopupController {
                 loaiNuoc = view.getLoaiNuoc().getSelectedItem().toString(),
                 donVi = view.getDonVi().getSelectedItem().toString(),
                 tenNuoc = view.getTenNuoc().getText().toString();
-        int soLuong = (Integer) (view.getSpnCount().getValue());
+        int gam = (Integer) (view.getSpnCount().getValue());
         double giaBan = (Double) (view.getSpnSalary().getValue());
 
+        
+        
         if (maThucUong.isEmpty() || loaiNuoc.isEmpty() || donVi.isEmpty()) {
             throw new Exception("Vui lòng điền đầy đủ thông tin");
         }
         if (giaBan < 0) {
             throw new Exception("Giá bán không thể âm");
         }
-        if (soLuong < 0) {
+        
+
+        if(maThucUong.matches( "^TU\\d+$"))
+        {
+              throw new Exception("Bạn không không đúng với định dạng vd ( TU + số ) ");
+        }
+        if (gam < 0) {
             throw new Exception("Số lượng không thể âm");
         }
 
         DonViNuoc dvn = donVi.equals("Chai")? DonViNuoc.Chai : DonViNuoc.Ly;
 
-        ThucUong updatedThucUong = new ThucUong(maThucUong, tenNuoc, LoaiNuoc.getByName(loaiNuoc), dvn, soLuong, giaBan);
-        updatedThucUong.setMaNuoc(thucUong.getMaNuoc()); 
+        ThucUong updatedThucUong = new ThucUong(maThucUong, tenNuoc, LoaiNuoc.getByName(loaiNuoc), dvn, gam, giaBan);
+//        System.out.println(thucUong.getMaNuoc());
+     
+       thucUongDao.update(updatedThucUong);
+       view.dispose();
+       view.showMessage("Sửa thức uống thành công!");
+       sc.onSuccess();
+      
 
-        thucUongDao.update(updatedThucUong);
-        view.dispose();
-        view.showMessage("Sửa thức uống thành công!");
-        sc.onSuccess();
 }
     
 
-  public void remove(ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
+   public void remove(ThucUong thucUong, SuccessCallback sc, ErrorCallback ec) {
         try {
             thucUongDao.delete(thucUong);
             sc.onSuccess();

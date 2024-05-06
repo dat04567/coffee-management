@@ -16,6 +16,9 @@ import java.util.ArrayList;
  */
 public class NhanVienDao  implements Dao<NhanVien> {
 
+    
+    
+   
     @Override
     public ArrayList<NhanVien> getAll() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -27,13 +30,12 @@ public class NhanVienDao  implements Dao<NhanVien> {
     }
 
     @Override
-    public void save(NhanVien t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int save(NhanVien t) throws SQLException {
+        return 1;
     }
 
     @Override
     public void update(NhanVien t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -48,11 +50,11 @@ public class NhanVienDao  implements Dao<NhanVien> {
     
     public NhanVien findByUsername(String userName) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM NhanVien WHERE  NhanVien.username = '" + userName + "'";
+        String query = "SELECT * FROM NhanVien WHERE  NhanVien.taiKhoan = '" + userName + "'";
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
-//            NhanVien employee = NhanVien.getFromResultSet(rs);
-//            return employee;
+            NhanVien employee = NhanVien.getFromResultSet(rs);
+            return employee;
         }
         return null;
     }

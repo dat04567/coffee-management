@@ -5,12 +5,21 @@
 package controllers.employee;
 
 import controllers.popup.OrderFoodPopupController;
+import dao.HoaDonDao;
+import dao.ThucUongDao;
+import entity.Ban;
+import entity.HoaDon;
+import entity.ThucUong;
 import gui.employee.FoodManagerView;
+import gui.employee.OrderDetailView;
 import gui.employee.OrderManagerView;
+import gui.employee.TableItem;
 import gui.popup.OrderFoodPopupView;
 import gui.popup.OrderFoodUpdateView;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.text.View;
@@ -22,51 +31,54 @@ import javax.swing.text.View;
 public class OrderManagerController {
     TableController tableController;
     OrderManagerView view;
-    OrderFoodPopupController orderFoodPopupController = new OrderFoodPopupController();
+    OrderDetailController orderDetailController;
+    ThucUongDao thucUongDao = new ThucUongDao();
    
+            
     public OrderManagerController(OrderManagerView view) {
         this.view = view;
-        tableController = new TableController(view.getTableManPnl());
-        tableController.addTable(25);
+        tableController = new TableController(view);
+        orderDetailController = new OrderDetailController();
+        
+        tableController.addTable();
         tableController.addTableEvent(this::addTableEvent);
-        addOrderDetailEvent();
-    }
-    
-    public void addTableEvent(JButton btnTable)
-    {
-        String numberTxt = btnTable.getText();
-        view.getNameTable().setText(numberTxt);
+        
+//        default 
+        
     }
     
     
     
     
-    public void addOrderDetailEvent()
+ 
+    public void addTableEvent(TableItem item)
     {
+        JButton btnTable = item.getNumberTable();
+        String numberTxt = btnTable.getText().split(" ")[1];
+
+        int numberTable = Integer.parseInt(numberTxt);
+       
+        OrderDetailView orderView =  (OrderDetailView) view.getOrderDetailPanel().getComponent(numberTable);
+        view.getCardLayout().show(view.getOrderDetailPanel(), "B" + numberTxt);
+        orderView.getNameTable().setText(btnTable.getText());
         
-        view.getBtnChoose().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               orderFoodPopupController.add(new OrderFoodPopupView());
-            }
-        });
-        
-        view.getBtnEdit().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               orderFoodPopupController.edit(new OrderFoodUpdateView());
-            }
-        });
-        
-        view.getBtnRemove().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               
-            }
-        });
-        
+        orderDetailController.addOrderEvent(orderView, tableController::getTableItemActive );
     }
    
+    
+ 
+    
+    
+    
+  
+ 
+    
+  
+    
+    
+   
+    
+    
     
     
     

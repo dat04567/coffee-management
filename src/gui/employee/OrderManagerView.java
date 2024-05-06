@@ -4,13 +4,18 @@
  */
 package gui.employee;
 
+import entity.ThucUong;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import utils.ErrorPopup;
 import utils.IconManager;
 
 /**
@@ -19,57 +24,58 @@ import utils.IconManager;
  */
 public  class OrderManagerView extends javax.swing.JPanel {
 
-     String[] list = {"STT",  "Tên nước", "Giá Bán", "Số lượng", "Ghi chú"};
-     DefaultTableModel tableModel = new DefaultTableModel();
+     
      
     IconManager im = new IconManager();
     private  String numberTable;
+    private  CardLayout cardLayout = new CardLayout();
+    IntroduceOrderView introduceOrder = new IntroduceOrderView();
     JPanel panel = new JPanel();
     public OrderManagerView() {
         initComponents();
-        pay.setIcon(im.getIcon("pay.png"));
-        print.setIcon(im.getIcon("printer.png"));
-        tableFood.setModel(tableModel);
-        setTableModel();
-        payments.addItem("Tiền mặt");
-        payments.addItem("Thanh toán chuyển khoản");
+        
+        
+        
+        orderDetailPanel.setLayout(cardLayout);
+        orderDetailPanel.add(introduceOrder, "intro");
+        
         
 //        JScrollPane scrollPane = new JScrollPane(panel);
 //        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 //        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 //        scrollPane.setBounds(50, 30, 300, 50);
 //        
-        
+//        setLayout(cardLayout);
 //        add(scrollPane, BorderLayout.CENTER);
 
     }
-    public void setTableModel() {
-          for (String string : list) {
-              tableModel.addColumn(string);
-        }
 
+    public CardLayout getCardLayout() {
+        return cardLayout;
     }
+    
+   
+    
 
+    
     public JPanel getTableManPnl() {
         return tableManPnl;
     }
 
-    public JLabel getNameTable() {
-        return nameTable;
-    }
 
-    public JButton getBtnChoose() {
-        return btnChoose;
-    }
-
-    public JButton getBtnEdit() {
-        return btnEdit;
-    }
-
-    public JButton getBtnRemove() {
-        return btnRemove;
-    }
     
+    
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+
+    public void showError(Exception e) {
+        ErrorPopup.show(e);
+    }
+
+    public JPanel getOrderDetailPanel() {
+        return orderDetailPanel;
+    }
     
 
     
@@ -92,29 +98,7 @@ public  class OrderManagerView extends javax.swing.JPanel {
 
         tableScrollPanel = new javax.swing.JScrollPane();
         tableManPnl = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableFood = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        nameTable = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        onTheDay = new com.toedter.calendar.JDateChooser();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        btnChoose = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnRemove = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        pay = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        print = new javax.swing.JButton();
-        tienNhanCuaKhach = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
-        payments = new javax.swing.JComboBox<>();
+        orderDetailPanel = new javax.swing.JPanel();
 
         setMaximumSize(new java.awt.Dimension(1008, 680));
         setPreferredSize(new java.awt.Dimension(1008, 680));
@@ -130,240 +114,26 @@ public  class OrderManagerView extends javax.swing.JPanel {
         tableScrollPanel.setViewportView(tableManPnl);
 
         add(tableScrollPanel, java.awt.BorderLayout.CENTER);
+        tableScrollPanel.getAccessibleContext().setAccessibleName("");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Chi tiết hoá đơn"));
-        jPanel1.setMaximumSize(new java.awt.Dimension(500, 500));
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 200));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        tableFood.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tableFood.setPreferredSize(new java.awt.Dimension(300, 50));
-        jScrollPane1.setViewportView(tableFood);
-
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        nameTable.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        nameTable.setText("Bàn số 2 ");
-
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel2.setText("Ngày vào");
-
-        onTheDay.setMinSelectableDate(new java.util.Date());
-
-        jLabel3.setText("Khách hàng");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        btnChoose.setBackground(new java.awt.Color(51, 204, 0));
-        btnChoose.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        btnChoose.setForeground(new java.awt.Color(255, 255, 255));
-        btnChoose.setText("Chọn món");
-
-        btnEdit.setBackground(new java.awt.Color(255, 204, 0));
-        btnEdit.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setText("Chỉnh sửa");
-
-        btnRemove.setBackground(new java.awt.Color(255, 0, 0));
-        btnRemove.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        btnRemove.setForeground(new java.awt.Color(255, 255, 255));
-        btnRemove.setText("Xoá");
-        btnRemove.setPreferredSize(new java.awt.Dimension(96, 23));
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameTable)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(27, 27, 27)
-                                .addComponent(onTheDay, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+        javax.swing.GroupLayout orderDetailPanelLayout = new javax.swing.GroupLayout(orderDetailPanel);
+        orderDetailPanel.setLayout(orderDetailPanelLayout);
+        orderDetailPanelLayout.setHorizontalGroup(
+            orderDetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameTable)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(onTheDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        orderDetailPanelLayout.setVerticalGroup(
+            orderDetailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
-
-        jPanel3.setMaximumSize(new java.awt.Dimension(500, 500));
-        jPanel3.setPreferredSize(new java.awt.Dimension(200, 200));
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        pay.setText("Thanh toán");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.ipadx = 30;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        jPanel3.add(pay, gridBagConstraints);
-
-        jLabel4.setText("Tổng tiền");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
-        jPanel3.add(jLabel4, gridBagConstraints);
-
-        jLabel5.setText("0 VNĐ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(jLabel5, gridBagConstraints);
-
-        jLabel6.setText("Tiền nhận của khách");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
-        jPanel3.add(jLabel6, gridBagConstraints);
-
-        jLabel7.setText("Tiền thừa");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
-        jPanel3.add(jLabel7, gridBagConstraints);
-
-        jLabel8.setText("0 VNĐ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(jLabel8, gridBagConstraints);
-
-        print.setText("In Hoá Đơn");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 25;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        jPanel3.add(print, gridBagConstraints);
-
-        tienNhanCuaKhach.setPreferredSize(new java.awt.Dimension(200, 23));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(tienNhanCuaKhach, gridBagConstraints);
-
-        jLabel1.setText("Hình thức thanh toán");
-        jLabel1.setToolTipText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel3.add(jLabel1, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 10, 0);
-        jPanel3.add(payments, gridBagConstraints);
-
-        jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
-
-        add(jPanel1, java.awt.BorderLayout.LINE_END);
+        add(orderDetailPanel, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChoose;
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnRemove;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel nameTable;
-    private com.toedter.calendar.JDateChooser onTheDay;
-    private javax.swing.JButton pay;
-    private javax.swing.JComboBox<String> payments;
-    private javax.swing.JButton print;
-    private javax.swing.JTable tableFood;
+    private javax.swing.JPanel orderDetailPanel;
     private javax.swing.JPanel tableManPnl;
     private javax.swing.JScrollPane tableScrollPanel;
-    private javax.swing.JSpinner tienNhanCuaKhach;
     // End of variables declaration//GEN-END:variables
 }
